@@ -104,6 +104,7 @@ class IconConstants {
   static const String icActiveHome = 'assets/icons/ic_active_home.svg';
   static const String icBackArrow = 'assets/icons/ic_back_arrow.svg';
   static const String icPpCoin = 'assets/icons/ic_pp_coin.svg';
+  static const String icTwoRings = 'assets/icons/ic_two_ring.svg';
   static const String icSearch = 'assets/icons/ic_search.svg';
   static const String icDelete = 'assets/icons/ic_delete.svg';
   static const String icEmoji = 'assets/icons/ic_emoji.svg';

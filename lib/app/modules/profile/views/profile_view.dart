@@ -53,6 +53,11 @@ class ProfileView extends GetView<ProfileController> {
                     child: userNameTextView(),
                   ),
                   checkIconView(),
+                  CommonMethods.appIcons(
+                   assetName: IconConstants.icTwoRings,
+                   height: 14.px,
+                   width: 18.px
+                  ),
                 ],
               ),
               SizedBox(height: 2.px),
@@ -65,7 +70,7 @@ class ProfileView extends GetView<ProfileController> {
                     assetName: IconConstants.icPpCoin,
                     height: 12.px,
                     width: 12.px
-                  )
+                  ),
                 ],
               ),
             ],
