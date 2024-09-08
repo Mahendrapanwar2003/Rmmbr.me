@@ -42,18 +42,18 @@ class HelpSupportView extends GetView<HelpSupportController> {
                                 Text(
                                   'Lorem ipsum dolor sit amet.',
                                   style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                                      letterSpacing: 0,
-                                      wordSpacing: 0
+                                    letterSpacing: 0,
+                                    wordSpacing: 0
                                   ),
                                 ),
                                 Container(
                                   height: 24.px,
                                   width: 24.px,
                                   decoration: BoxDecoration(
-                                      color: controller.helpSupportSelectedValue.value.contains('$index')
-                                          ? Theme.of(context).colorScheme.primary
-                                          : Theme.of(context).colorScheme.surface,
-                                      shape: BoxShape.circle
+                                   color: controller.helpSupportSelectedValue.value.contains('$index')
+                                     ? Theme.of(context).colorScheme.primary
+                                     : Theme.of(context).colorScheme.surface,
+                                   shape: BoxShape.circle
                                   ),
                                   child: RotatedBox(
                                     quarterTurns: controller.helpSupportSelectedValue.value.contains('$index')
