@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
 import 'package:new_pro/common/common_methods.dart';
 import 'package:new_pro/common/common_widgets.dart';
 import 'package:new_pro/constants/icons_constant.dart';
 import 'package:new_pro/constants/size_constants.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-
 import '../controllers/help_support_controller.dart';
 
 class HelpSupportView extends GetView<HelpSupportController> {
@@ -57,12 +55,12 @@ class HelpSupportView extends GetView<HelpSupportController> {
                                   ),
                                   child: RotatedBox(
                                     quarterTurns: controller.helpSupportSelectedValue.value.contains('$index')
-                                        ? 135
-                                        : 45,
+                                     ? 135
+                                     : 45,
                                     child: CommonMethods.appIcons(
-                                        assetName: IconConstants.icBackArrow,
-                                        height: 10.px,
-                                        width: 6.px
+                                      assetName: IconConstants.icBackArrow,
+                                      height: 10.px,
+                                      width: 6.px
                                     ),
                                   ),
                                 ),
