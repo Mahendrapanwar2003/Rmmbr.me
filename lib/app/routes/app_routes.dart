@@ -23,6 +23,11 @@ abstract class Routes {
   static const FAMILY_TREE = _Paths.FAMILY_TREE;
   static const EDIT_MEMBER = _Paths.EDIT_MEMBER;
   static const ADD_MEMBER = _Paths.ADD_MEMBER;
+  static const REPORTED_ACCOUNTS = _Paths.REPORTED_ACCOUNTS;
+  static const HELP_SUPPORT = _Paths.HELP_SUPPORT;
+  static const TERMS_OF_USE = _Paths.TERMS_OF_USE;
+  static const PRIVACY_POLICY = _Paths.PRIVACY_POLICY;
+  static const MANAGE_NOTIFICATION = _Paths.MANAGE_NOTIFICATION;
 }
 
 abstract class _Paths {
@@ -47,4 +52,9 @@ abstract class _Paths {
   static const FAMILY_TREE = '/family-tree';
   static const EDIT_MEMBER = '/edit-member';
   static const ADD_MEMBER = '/add-member';
+  static const REPORTED_ACCOUNTS = '/reported-accounts';
+  static const HELP_SUPPORT = '/help-support';
+  static const TERMS_OF_USE = '/terms-of-use';
+  static const PRIVACY_POLICY = '/privacy-policy';
+  static const MANAGE_NOTIFICATION = '/manage-notification';
 }

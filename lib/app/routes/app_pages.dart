@@ -20,14 +20,22 @@ import '../modules/family_tree/bindings/family_tree_binding.dart';
 import '../modules/family_tree/views/family_tree_view.dart';
 import '../modules/forgot_password/bindings/forgot_password_binding.dart';
 import '../modules/forgot_password/views/forgot_password_view.dart';
+import '../modules/help_support/bindings/help_support_binding.dart';
+import '../modules/help_support/views/help_support_view.dart';
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
 import '../modules/login/bindings/login_binding.dart';
 import '../modules/login/views/login_view.dart';
+import '../modules/manage_notification/bindings/manage_notification_binding.dart';
+import '../modules/manage_notification/views/manage_notification_view.dart';
 import '../modules/nav_bar/bindings/nav_bar_binding.dart';
 import '../modules/nav_bar/views/nav_bar_view.dart';
+import '../modules/privacy_policy/bindings/privacy_policy_binding.dart';
+import '../modules/privacy_policy/views/privacy_policy_view.dart';
 import '../modules/profile/bindings/profile_binding.dart';
 import '../modules/profile/views/profile_view.dart';
+import '../modules/reported_accounts/bindings/reported_accounts_binding.dart';
+import '../modules/reported_accounts/views/reported_accounts_view.dart';
 import '../modules/reset_password/bindings/reset_password_binding.dart';
 import '../modules/reset_password/views/reset_password_view.dart';
 import '../modules/sign_up/bindings/sign_up_binding.dart';
@@ -36,6 +44,11 @@ import '../modules/sign_up_second/bindings/sign_up_second_binding.dart';
 import '../modules/sign_up_second/views/sign_up_second_view.dart';
 import '../modules/splash/bindings/splash_binding.dart';
 import '../modules/splash/views/splash_view.dart';
+import '../modules/terms_of_use/bindings/terms_of_use_binding.dart';
+import '../modules/terms_of_use/views/terms_of_use_view.dart';
+import '../modules/tree/bindings/tree_binding.dart';
+import '../modules/tree/views/tree_view.dart';
+
 part 'app_routes.dart';
 
 class AppPages {
@@ -133,6 +146,31 @@ class AppPages {
       name: _Paths.ADD_MEMBER,
       page: () => const AddMemberView(),
       binding: AddMemberBinding(),
+    ),
+    GetPage(
+      name: _Paths.REPORTED_ACCOUNTS,
+      page: () => const ReportedAccountsView(),
+      binding: ReportedAccountsBinding(),
+    ),
+    GetPage(
+      name: _Paths.HELP_SUPPORT,
+      page: () => const HelpSupportView(),
+      binding: HelpSupportBinding(),
+    ),
+    GetPage(
+      name: _Paths.TERMS_OF_USE,
+      page: () => const TermsOfUseView(),
+      binding: TermsOfUseBinding(),
+    ),
+    GetPage(
+      name: _Paths.PRIVACY_POLICY,
+      page: () => const PrivacyPolicyView(),
+      binding: PrivacyPolicyBinding(),
+    ),
+    GetPage(
+      name: _Paths.MANAGE_NOTIFICATION,
+      page: () => const ManageNotificationView(),
+      binding: ManageNotificationBinding(),
     ),
   ];
 }
