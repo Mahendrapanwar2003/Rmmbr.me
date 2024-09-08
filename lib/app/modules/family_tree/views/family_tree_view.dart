@@ -89,20 +89,23 @@ class FamilyTreeView extends GetView<FamilyTreeController> {
                           return Container(
                             margin: EdgeInsets.only(top: 16.px),
                             padding: EdgeInsets.symmetric(
-                              vertical: 17.px,
-                              horizontal: SizeConstants.bodyHorizontalPadding,
+                              vertical: 16.px,
+                              horizontal: 14.px,
                             ),
                             decoration: BoxDecoration(
-                              color:
-                                  Theme.of(Get.context!).colorScheme.onPrimary,
+                              color: Theme.of(Get.context!).colorScheme.onPrimary,
                               borderRadius: BorderRadius.circular(24.px),
                             ),
                             child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 ClipRRect(
                                   borderRadius: BorderRadius.circular(30.px),
                                   child: Image.asset(
-                                      'assets/images/temp_user_image.png',height: 60.px,width: 60.px,),
+                                    'assets/images/profile_dummy.png',
+                                    height: 60.px,
+                                    width: 60.px,
+                                  ),
                                 ),
                                 SizedBox(width: 14.px),
                                 Expanded(
@@ -111,55 +114,50 @@ class FamilyTreeView extends GetView<FamilyTreeController> {
                                       Text(
                                         'Rachel Podrez is inviting you, as a cousin, to be included in the family tree.',
                                         maxLines: 2,
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .labelSmall
-                                              ?.copyWith(
-                                              color: Theme.of(Get.context!)
-                                                  .colorScheme
-                                                  .primary,
-                                              fontSize: 14.px,
-                                            ),
+                                        overflow: TextOverflow.ellipsis,
+                                        style: Theme.of(context).textTheme.labelSmall?.copyWith(
+                                         color: Theme.of(Get.context!).colorScheme.primary,
+                                         fontSize: 14.px,
+                                        ),
                                       ),
                                       SizedBox(height: 10.px),
-                                      Row(
-                                        children: [
-                                          Expanded(
-                                              child: SizedBox(
-                                            height: 42.px,
-                                            child: CommonWidgets.commonElevatedButton(
-                                              wantBorder: false,
-                                              buttonColor: Theme.of(context)
-                                                  .colorScheme
-                                                  .surface
-                                                  .withOpacity(.4.px),
-                                              onPressed: () {},
-                                              child: Text(
-                                                'Reject',
-                                                style: Theme.of(context)
-                                                    .textTheme
-                                                    .labelSmall
-                                                    ?.copyWith(
-                                                        color: Theme.of(Get.context!)
-                                                            .colorScheme
-                                                            .primary,fontSize: 14.px),
+
+                                      SizedBox(
+                                        height: 38.px,
+                                        child: Row(
+                                          children: [
+                                            Expanded(
+                                              child: CommonWidgets.commonElevatedButton(
+                                                buttonColor: Theme.of(Get.context!).colorScheme.surface.withOpacity(.2),
+                                                onPressed: () {},
+                                                child: Text(
+                                                  'Reject',
+                                                  style: Theme.of(Get.context!).textTheme.labelSmall?.copyWith(
+                                                    letterSpacing: 0,
+                                                    fontSize: 14.px
+                                                  ),
+                                                ),
                                               ),
                                             ),
-                                          )),
-                                          SizedBox(width: 10.px),
-                                          Expanded(
-                                            child: SizedBox(
-                                              height: 42.px,
-                                              child: const ProfileView()
-                                                  .commonEleButtonView(
-                                                fontSize: 14.px,
-                                                buttonText: 'Accept',
-                                                onPressed: ()=>controller.clickOnAcceptButton(),
+                                            SizedBox(width: 16.px),
+                                            Expanded(
+                                              child: CommonWidgets.commonElevatedButton(
+                                                contentPadding: EdgeInsets.symmetric(horizontal: 7.px),
+                                                onPressed: () => controller.clickOnAcceptButton(),
+                                                child: Text(
+                                                  'Accept',
+                                                  style: Theme.of(Get.context!).textTheme.labelSmall?.copyWith(
+                                                    color: Theme.of(Get.context!).colorScheme.onPrimary,
+                                                    letterSpacing: 0,
+                                                    wordSpacing: 0,
+                                                    fontSize: 14.px
+                                                  ),
+                                                ),
                                               ),
                                             ),
-                                          ),
-                                        ],
-                                      ),
+                                          ],
+                                        ),
+                                      )
                                     ],
                                   ),
                                 ),

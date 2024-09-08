@@ -80,7 +80,8 @@ class NotificationView extends GetView<NotificationController> {
                                         child: Text(
                                           'Delete',
                                           style: Theme.of(Get.context!).textTheme.labelSmall?.copyWith(
-                                           letterSpacing: 0
+                                           letterSpacing: 0,
+                                            fontSize: 14.px
                                           ),
                                         ),
                                       ),
@@ -93,7 +94,8 @@ class NotificationView extends GetView<NotificationController> {
                                           'Publish',
                                           style: Theme.of(Get.context!).textTheme.labelSmall?.copyWith(
                                            color: Theme.of(Get.context!).colorScheme.onPrimary,
-                                            letterSpacing: 0
+                                            letterSpacing: 0,
+                                              fontSize: 14.px
                                           ),
                                         ),
                                       ),

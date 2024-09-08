@@ -415,16 +415,13 @@ class FamilyTreeController extends GetxController
           () {
             count.value;
             return Dialog(
-              insetPadding: EdgeInsets.symmetric(
-                  horizontal: SizeConstants.bodyHorizontalPadding),
+              insetPadding: EdgeInsets.symmetric(horizontal: SizeConstants.bodyHorizontalPadding),
               backgroundColor: Theme.of(context).colorScheme.onPrimary,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(16),
               ),
               child: Padding(
-                padding: EdgeInsets.symmetric(
-                    horizontal: SizeConstants.bodyHorizontalPadding,
-                    vertical: 24.px),
+                padding: EdgeInsets.symmetric(horizontal: SizeConstants.bodyHorizontalPadding, vertical: 24.px),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
@@ -436,14 +433,10 @@ class FamilyTreeController extends GetxController
                         Flexible(
                           child: Text(
                             'Please Confirm relationship with your partner',
-                            style: Theme.of(context)
-                                .textTheme
-                                .labelSmall
-                                ?.copyWith(
-                                    color: Theme.of(Get.context!)
-                                        .colorScheme
-                                        .primary,
-                                    fontSize: 20.px),
+                            style: Theme.of(context).textTheme.labelSmall?.copyWith(
+                              color: Theme.of(Get.context!).colorScheme.primary,
+                              fontSize: 20.px,
+                            ),
                           ),
                         ),
                         GestureDetector(
@@ -466,13 +459,10 @@ class FamilyTreeController extends GetxController
                                 padding: const EdgeInsets.all(8.0),
                                 child: GestureDetector(
                                   onTap: () {
-                                    selectedOption.value =
-                                        reletionshiipOptions[index];
-                                    count.value++;
+                                    selectedOption.value = reletionshiipOptions[index];
                                   },
                                   child: Row(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
+                                    crossAxisAlignment: CrossAxisAlignment.center,
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       Container(
@@ -480,52 +470,33 @@ class FamilyTreeController extends GetxController
                                         width: 14.px,
                                         margin: EdgeInsets.only(right: 8.px),
                                         decoration: BoxDecoration(
-                                            shape: BoxShape.circle,
-                                            border: Border.all(
-                                                color: selectedOption.value
-                                                        .contains(
-                                                            reletionshiipOptions[
-                                                                index])
-                                                    ? Theme.of(context)
-                                                        .colorScheme
-                                                        .primary
-                                                    : Theme.of(context)
-                                                        .colorScheme
-                                                        .surface)),
+                                          shape: BoxShape.circle,
+                                          border: Border.all(
+                                            color: selectedOption.value.contains(reletionshiipOptions[index])
+                                                ? Theme.of(context).colorScheme.primary 
+                                                : Theme.of(context).colorScheme.surface,
+                                          ),
+                                        ),
                                         child: Center(
                                           child: Container(
                                             height: 8.px,
                                             width: 8.px,
                                             decoration: BoxDecoration(
-                                                color: selectedOption.value
-                                                        .contains(
-                                                            reletionshiipOptions[
-                                                                index])
-                                                    ? Theme.of(context)
-                                                        .colorScheme
-                                                        .primary
-                                                    : Colors.transparent,
-                                                shape: BoxShape.circle),
+                                              color: selectedOption.value.contains(reletionshiipOptions[index])
+                                                  ? Theme.of(context).colorScheme.primary
+                                                  : Colors.transparent,
+                                              shape: BoxShape.circle,
+                                            ),
                                           ),
                                         ),
                                       ),
                                       Text(
-                                        reletionshiipOptions[index]
-                                            .toUpperCase(),
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .titleMedium
-                                            ?.copyWith(
-                                                color: selectedOption.value
-                                                        .contains(
-                                                            reletionshiipOptions[
-                                                                index])
-                                                    ? Theme.of(context)
-                                                        .colorScheme
-                                                        .primary
-                                                    : Theme.of(context)
-                                                        .colorScheme
-                                                        .surface),
+                                        reletionshiipOptions[index].toUpperCase(),
+                                        style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                                          color: selectedOption.value.contains(reletionshiipOptions[index])
+                                              ? Theme.of(context).colorScheme.primary
+                                              : Theme.of(context).colorScheme.surface,
+                                        ),
                                       ),
                                     ],
                                   ),

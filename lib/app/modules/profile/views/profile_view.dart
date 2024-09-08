@@ -23,63 +23,84 @@ class ProfileView extends GetView<ProfileController> {
                   child: ListView(
                     padding: EdgeInsetsDirectional.symmetric(horizontal: SizeConstants.bodyHorizontalPadding, vertical: 32.px),
                     children: [
-                      userDataCardView(),
-                      postCardView(),
-                      SizedBox(
-                        height: 40.px,
-                        child: ListView.builder(
-                          itemCount: controller.cardTabBarTitles.length,
-                          shrinkWrap: true,
-                          scrollDirection: Axis.horizontal,
-                          itemBuilder: (context, index) {
-                            return Padding(
-                              padding: EdgeInsets.only(right: index != controller.cardTabBarTitles.length-1 ? 16.px : 0.px),
-                              child: GestureDetector(
-                                onTap: () => controller.clickOnTabBarView(tabBarValue:controller.cardTabBarTitles[index]),
-                                child: Container(
-                                  // height: 40.px,
-                                  padding: EdgeInsets.symmetric(horizontal: 20.px,vertical: 10.px),
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(6.px),
-                                      color: controller.selectTabBarValue.value == controller.cardTabBarTitles[index]
-                                          ? Theme.of(context).colorScheme.primary
-                                          : Theme.of(context).colorScheme.onPrimary,
-                                      border: Border.all(
-                                          color: controller.selectTabBarValue.value == controller.cardTabBarTitles[index]
-                                              ? Colors.transparent
-                                              : Theme.of(context).colorScheme.surface.withOpacity(.2),
-                                          width: controller.selectTabBarValue.value == controller.cardTabBarTitles[index]
-                                              ? 0.px
-                                              : .5.px
-                                      )
-                                  ),
-                                  child: Text(
-                                    controller.cardTabBarTitles[index],
-                                    style: Theme.of(context).textTheme.labelSmall?.copyWith(
-                                        // height: 1.2,
-                                        fontWeight: FontWeight.w500,
-                                        color: controller.selectTabBarValue.value == controller.cardTabBarTitles[index]
-                                            ? Theme.of(context).colorScheme.onPrimary
-                                            : Theme.of(context).colorScheme.surface
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            );
-                          },
-                        ),
-                      ),
-                      SizedBox(height: 8.px),
-                      if(controller.selectTabBarValue.value == 'Settings')
-                        settingView(),
-                      if(controller.selectTabBarValue.value == 'Info')
-                      editProfileView(),
-                      if(controller.selectTabBarValue.value == 'Posts')
-                      postView(),
-                      if(controller.selectTabBarValue.value == 'Photos')
-                      photosView(),
-                      if(controller.selectTabBarValue.value == 'Videos')
-                      videosView(),
+                      // GridView.builder(
+                      //   itemCount: 12,
+                      //   shrinkWrap: true,
+                      //   physics: const NeverScrollableScrollPhysics(),
+                      //   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      //     crossAxisCount: 3,
+                      //     mainAxisSpacing: 10.px,
+                      //     crossAxisSpacing: 10.px
+                      //   ),
+                      //   itemBuilder: (BuildContext context, int index) {
+                      //     final isDoubleWidth = (index + 1) % 5 == 0;
+                      //     final itemWidth = isDoubleWidth ? MediaQuery.of(context).size.width / 3 * 2 : MediaQuery.of(context).size.width / 3;
+                      //     return Container(
+                      //       width: itemWidth,
+                      //       color: Colors.red,
+                      //       child: Text(''),
+                      //     );
+                      //   },
+                      // ),
+
+                      InstaGrid(),
+                      // userDataCardView(),
+                      // postCardView(),
+                      // SizedBox(
+                      //   height: 40.px,
+                      //   child: ListView.builder(
+                      //     itemCount: controller.cardTabBarTitles.length,
+                      //     shrinkWrap: true,
+                      //     scrollDirection: Axis.horizontal,
+                      //     itemBuilder: (context, index) {
+                      //       return Padding(
+                      //         padding: EdgeInsets.only(right: index != controller.cardTabBarTitles.length-1 ? 16.px : 0.px),
+                      //         child: GestureDetector(
+                      //           onTap: () => controller.clickOnTabBarView(tabBarValue:controller.cardTabBarTitles[index]),
+                      //           child: Container(
+                      //             // height: 40.px,
+                      //             padding: EdgeInsets.symmetric(horizontal: 20.px,vertical: 10.px),
+                      //             decoration: BoxDecoration(
+                      //                 borderRadius: BorderRadius.circular(6.px),
+                      //                 color: controller.selectTabBarValue.value == controller.cardTabBarTitles[index]
+                      //                     ? Theme.of(context).colorScheme.primary
+                      //                     : Theme.of(context).colorScheme.onPrimary,
+                      //                 border: Border.all(
+                      //                     color: controller.selectTabBarValue.value == controller.cardTabBarTitles[index]
+                      //                         ? Colors.transparent
+                      //                         : Theme.of(context).colorScheme.surface.withOpacity(.2),
+                      //                     width: controller.selectTabBarValue.value == controller.cardTabBarTitles[index]
+                      //                         ? 0.px
+                      //                         : .5.px
+                      //                 )
+                      //             ),
+                      //             child: Text(
+                      //               controller.cardTabBarTitles[index],
+                      //               style: Theme.of(context).textTheme.labelSmall?.copyWith(
+                      //                   // height: 1.2,
+                      //                   fontWeight: FontWeight.w500,
+                      //                   color: controller.selectTabBarValue.value == controller.cardTabBarTitles[index]
+                      //                       ? Theme.of(context).colorScheme.onPrimary
+                      //                       : Theme.of(context).colorScheme.surface
+                      //               ),
+                      //             ),
+                      //           ),
+                      //         ),
+                      //       );
+                      //     },
+                      //   ),
+                      // ),
+                      // SizedBox(height: 8.px),
+                      // if(controller.selectTabBarValue.value == 'Settings')
+                      //   settingView(),
+                      // if(controller.selectTabBarValue.value == 'Info')
+                      // editProfileView(),
+                      // if(controller.selectTabBarValue.value == 'Posts')
+                      // postView(),
+                      // if(controller.selectTabBarValue.value == 'Photos')
+                      // photosView(),
+                      // if(controller.selectTabBarValue.value == 'Videos')
+                      // videosView(),
                       SizedBox(height: 80.px)
                     ],
                   ),
@@ -638,3 +659,46 @@ class ProfileView extends GetView<ProfileController> {
 // privacy_policy
 // manage_notification
 // privacy_settings
+
+
+class InstaGrid extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return GridView.builder(
+      padding: EdgeInsets.all(8),
+      shrinkWrap: true,
+      itemCount: 12,
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 3,
+        mainAxisSpacing: 8,
+        crossAxisSpacing: 8,
+      ),
+      itemBuilder: (context, index) {
+        // Check if the index corresponds to a larger image (for example, every third item)
+        final isLargeItem = index % 6 == 0;
+
+        // Determine the layout of the item based on the index
+        return GridTile(
+          child: Container(
+            color: Colors.red,
+            child: AspectRatio(
+              aspectRatio: isLargeItem ? 1 : 1 / 1, // Make the larger item square
+              child: Container(
+                color: Colors.blueAccent,
+                child: Center(
+                  child: Text(
+                    'Item $index',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
+}
