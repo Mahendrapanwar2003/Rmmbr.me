@@ -28,6 +28,7 @@ class StringConstants {
   static const String didNotReceiveACode = "Didn’t received a code?";
   static const String resend = "Resend";
   static const String addProfileImage = "Add Profile Image";
+  static const String editProfileImage = "Edit profile image";
   static const String enterOtpCodeHere = "Enter OTP Code here";
   static const String home = 'Home';
   static const String tree = 'Tree';

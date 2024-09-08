@@ -16,6 +16,10 @@ class FamilyTreeController extends GetxController
 
   final selectedTab = 0.obs;
 
+  final selectedOption = ''.obs;
+
+  final List<String> reletionshiipOptions = ['CURRENT', 'FORMER'];
+
   @override
   void onInit() {
     super.onInit();
@@ -126,6 +130,7 @@ class FamilyTreeController extends GetxController
                   height: 1.px,
                 ),
                 ListTile(
+                  onTap: () => clickOnReportMember(),
                   title: Text(
                     'Report Member',
                     style: Theme.of(Get.context!).textTheme.labelLarge,
@@ -280,8 +285,9 @@ class FamilyTreeController extends GetxController
                                   .textTheme
                                   .labelSmall
                                   ?.copyWith(
-                                  color: Theme.of(Get.context!).colorScheme.primary
-                                  ),
+                                      color: Theme.of(Get.context!)
+                                          .colorScheme
+                                          .primary),
                             ),
                           ),
                         )),
@@ -297,6 +303,239 @@ class FamilyTreeController extends GetxController
                         ),
                       ],
                     ),
+                  ],
+                ),
+              ),
+            );
+          },
+        );
+      },
+    );
+  }
+
+  void clickOnReportMember() {
+    showDialog(
+      context: Get.context!,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return Obx(
+          () {
+            count.value;
+            return Dialog(
+              insetPadding: EdgeInsets.symmetric(
+                  horizontal: SizeConstants.bodyHorizontalPadding),
+              backgroundColor: Theme.of(context).colorScheme.onPrimary,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(16),
+              ),
+              child: Padding(
+                padding: EdgeInsets.symmetric(
+                    horizontal: SizeConstants.bodyHorizontalPadding,
+                    vertical: 24.px),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        Text(
+                          'Report Member',
+                          style: Theme.of(context).textTheme.headlineLarge,
+                        ),
+                        GestureDetector(
+                          child: Icon(
+                            Icons.close,
+                            color: Theme.of(context).colorScheme.primary,
+                          ),
+                          onTap: () => Get.back(),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 14.px),
+                    Text(
+                      'Confirm Report this family member?',
+                      style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                          color: Theme.of(context).colorScheme.surface),
+                    ),
+                    SizedBox(height: 24.px),
+                    Row(
+                      children: [
+                        Expanded(
+                            child: SizedBox(
+                          height: 42.px,
+                          child: CommonWidgets.commonElevatedButton(
+                            wantBorder: false,
+                            buttonColor: Theme.of(context)
+                                .colorScheme
+                                .surface
+                                .withOpacity(.4.px),
+                            onPressed: () {},
+                            child: Text(
+                              'Cancel',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .labelSmall
+                                  ?.copyWith(
+                                      color: Theme.of(Get.context!)
+                                          .colorScheme
+                                          .primary),
+                            ),
+                          ),
+                        )),
+                        SizedBox(width: 10.px),
+                        Expanded(
+                          child: SizedBox(
+                            height: 42.px,
+                            child: const ProfileView().commonEleButtonView(
+                              buttonText: 'Report',
+                              onPressed: () => Get.back(),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            );
+          },
+        );
+      },
+    );
+  }
+
+  void clickOnAcceptButton() {
+    showDialog(
+      context: Get.context!,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return Obx(
+          () {
+            count.value;
+            return Dialog(
+              insetPadding: EdgeInsets.symmetric(
+                  horizontal: SizeConstants.bodyHorizontalPadding),
+              backgroundColor: Theme.of(context).colorScheme.onPrimary,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(16),
+              ),
+              child: Padding(
+                padding: EdgeInsets.symmetric(
+                    horizontal: SizeConstants.bodyHorizontalPadding,
+                    vertical: 24.px),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        Flexible(
+                          child: Text(
+                            'Please Confirm relationship with your partner',
+                            style: Theme.of(context)
+                                .textTheme
+                                .labelSmall
+                                ?.copyWith(
+                                    color: Theme.of(Get.context!)
+                                        .colorScheme
+                                        .primary,
+                                    fontSize: 20.px),
+                          ),
+                        ),
+                        GestureDetector(
+                          child: Icon(
+                            Icons.close,
+                            color: Theme.of(context).colorScheme.primary,
+                          ),
+                          onTap: () => Get.back(),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 14.px),
+                    Wrap(
+                      children: [
+                        Row(
+                          children: List.generate(
+                            reletionshiipOptions.length,
+                            (index) {
+                              return Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: GestureDetector(
+                                  onTap: () {
+                                    selectedOption.value =
+                                        reletionshiipOptions[index];
+                                    count.value++;
+                                  },
+                                  child: Row(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Container(
+                                        height: 14.px,
+                                        width: 14.px,
+                                        margin: EdgeInsets.only(right: 8.px),
+                                        decoration: BoxDecoration(
+                                            shape: BoxShape.circle,
+                                            border: Border.all(
+                                                color: selectedOption.value
+                                                        .contains(
+                                                            reletionshiipOptions[
+                                                                index])
+                                                    ? Theme.of(context)
+                                                        .colorScheme
+                                                        .primary
+                                                    : Theme.of(context)
+                                                        .colorScheme
+                                                        .surface)),
+                                        child: Center(
+                                          child: Container(
+                                            height: 8.px,
+                                            width: 8.px,
+                                            decoration: BoxDecoration(
+                                                color: selectedOption.value
+                                                        .contains(
+                                                            reletionshiipOptions[
+                                                                index])
+                                                    ? Theme.of(context)
+                                                        .colorScheme
+                                                        .primary
+                                                    : Colors.transparent,
+                                                shape: BoxShape.circle),
+                                          ),
+                                        ),
+                                      ),
+                                      Text(
+                                        reletionshiipOptions[index]
+                                            .toUpperCase(),
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .titleMedium
+                                            ?.copyWith(
+                                                color: selectedOption.value
+                                                        .contains(
+                                                            reletionshiipOptions[
+                                                                index])
+                                                    ? Theme.of(context)
+                                                        .colorScheme
+                                                        .primary
+                                                    : Theme.of(context)
+                                                        .colorScheme
+                                                        .surface),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              );
+                            },
+                          ),
+                        ),
+                      ],
+                    )
                   ],
                 ),
               ),

@@ -4,6 +4,9 @@ import 'package:new_pro/common/common_widgets.dart';
 import 'package:new_pro/constants/size_constants.dart';
 import 'package:new_pro/constants/string_constants.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import '../../../../common/common_methods.dart';
+import '../../../../constants/icons_constant.dart';
+import '../../profile/views/profile_view.dart';
 import '../controllers/family_tree_controller.dart';
 
 class FamilyTreeView extends GetView<FamilyTreeController> {
@@ -68,14 +71,103 @@ class FamilyTreeView extends GetView<FamilyTreeController> {
                         ),
                       ),
                     ),
-                    (controller.selectedTab.value == 0)
-                        ? SingleChildScrollView(
-                            child: GestureDetector(
-                              onTap: () => controller.clickOnAddMember(context: context),
-                              child: Image.asset(
-                                  'assets/images/tem_family_tree.png'),
-                            ))
-                        : SizedBox()
+                    if (controller.selectedTab.value == 0)
+                      SingleChildScrollView(
+                        child: GestureDetector(
+                          onTap: () =>
+                              controller.clickOnAddMember(context: context),
+                          child:
+                              Image.asset('assets/images/tem_family_tree.png'),
+                        ),
+                      )
+                    else
+                      ListView.builder(
+                        itemCount: 3,
+                        padding: EdgeInsets.zero,
+                        shrinkWrap: true,
+                        itemBuilder: (context, index) {
+                          return Container(
+                            margin: EdgeInsets.only(top: 16.px),
+                            padding: EdgeInsets.symmetric(
+                              vertical: 17.px,
+                              horizontal: SizeConstants.bodyHorizontalPadding,
+                            ),
+                            decoration: BoxDecoration(
+                              color:
+                                  Theme.of(Get.context!).colorScheme.onPrimary,
+                              borderRadius: BorderRadius.circular(24.px),
+                            ),
+                            child: Row(
+                              children: [
+                                ClipRRect(
+                                  borderRadius: BorderRadius.circular(30.px),
+                                  child: Image.asset(
+                                      'assets/images/temp_user_image.png',height: 60.px,width: 60.px,),
+                                ),
+                                SizedBox(width: 14.px),
+                                Expanded(
+                                  child: Column(
+                                    children: [
+                                      Text(
+                                        'Rachel Podrez is inviting you, as a cousin, to be included in the family tree.',
+                                        maxLines: 2,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .labelSmall
+                                              ?.copyWith(
+                                              color: Theme.of(Get.context!)
+                                                  .colorScheme
+                                                  .primary,
+                                              fontSize: 14.px,
+                                            ),
+                                      ),
+                                      SizedBox(height: 10.px),
+                                      Row(
+                                        children: [
+                                          Expanded(
+                                              child: SizedBox(
+                                            height: 42.px,
+                                            child: CommonWidgets.commonElevatedButton(
+                                              wantBorder: false,
+                                              buttonColor: Theme.of(context)
+                                                  .colorScheme
+                                                  .surface
+                                                  .withOpacity(.4.px),
+                                              onPressed: () {},
+                                              child: Text(
+                                                'Reject',
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .labelSmall
+                                                    ?.copyWith(
+                                                        color: Theme.of(Get.context!)
+                                                            .colorScheme
+                                                            .primary,fontSize: 14.px),
+                                              ),
+                                            ),
+                                          )),
+                                          SizedBox(width: 10.px),
+                                          Expanded(
+                                            child: SizedBox(
+                                              height: 42.px,
+                                              child: const ProfileView()
+                                                  .commonEleButtonView(
+                                                fontSize: 14.px,
+                                                buttonText: 'Accept',
+                                                onPressed: ()=>controller.clickOnAcceptButton(),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          );
+                        },
+                      )
                   ],
                 ),
               )

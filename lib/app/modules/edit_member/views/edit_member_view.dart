@@ -21,7 +21,6 @@ class EditMemberView extends GetView<EditMemberController> {
           body: Column(
             children: [
               CommonWidgets.commonAppBarView(
-                  isBackButtonVisible: false,
                   appBarTitle: StringConstants.editMember),
               Expanded(
                 child: Padding(
@@ -35,16 +34,15 @@ class EditMemberView extends GetView<EditMemberController> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           SizedBox(height: 32.px),
-                          Center(
-                            child: CommonMethods.appIconsPng(
-                                assetName: IconConstantsPng.icAddProfileImage,
-                                height: 64.px,
-                                width: 64.px),
-                          ),
+
+                  Center(
+                    child: Image.asset(
+                        'assets/images/temp_user_image.png'),
+                  ),
                           SizedBox(height: 16.px),
                           Center(
                             child: Text(
-                              StringConstants.addProfileImage,
+                              StringConstants.editProfileImage,
                               style:
                                   Theme.of(Get.context!).textTheme.labelMedium,
                             ),

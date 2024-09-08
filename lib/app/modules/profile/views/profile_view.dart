@@ -239,12 +239,13 @@ class ProfileView extends GetView<ProfileController> {
     ),
   );
 
-  Widget commonEleButtonView({required String buttonText,required VoidCallback onPressed}) => CommonWidgets.commonElevatedButton(
+  Widget commonEleButtonView({required String buttonText,required VoidCallback onPressed, double? fontSize}) => CommonWidgets.commonElevatedButton(
     onPressed: onPressed,
     child: Text(
       buttonText,
       style: Theme.of(Get.context!).textTheme.labelSmall?.copyWith(
        color: Theme.of(Get.context!).colorScheme.onPrimary
+          ,fontSize: fontSize ?? 14.px
       ),
     ),
   );
