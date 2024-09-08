@@ -112,6 +112,12 @@ class IconConstants {
   static const String icAudio = 'assets/icons/ic_audio.svg';
   static const String icGallery = 'assets/icons/ic_gallery.svg';
   static const String notification = 'assets/icons/notification.svg';
+  static const String allEmojis = 'assets/icons/all_emojis.svg';
+  static const String icMessage = 'assets/icons/ic_message.svg';
+  static const String icShare = 'assets/icons/ic_share.svg';
+  static const String icLike = 'assets/icons/ic_thumb_up.svg';
+  static const String icGrayMenu = 'assets/icons/ic_gray_menu.svg';
+  static const String icHelpSupport = 'assets/icons/ic_help_support.svg';
 }
 
 class IconConstantsPng {

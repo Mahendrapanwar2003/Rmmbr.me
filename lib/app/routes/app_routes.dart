@@ -19,6 +19,11 @@ abstract class Routes {
   static const CHAT_USER_LIST = _Paths.CHAT_USER_LIST;
   static const CHAT_MESSAGE = _Paths.CHAT_MESSAGE;
   static const EDIT_PROFILE = _Paths.EDIT_PROFILE;
+  static const REPORTED_ACCOUNTS = _Paths.REPORTED_ACCOUNTS;
+  static const HELP_SUPPORT = _Paths.HELP_SUPPORT;
+  static const TERMS_OF_USE = _Paths.TERMS_OF_USE;
+  static const PRIVACY_POLICY = _Paths.PRIVACY_POLICY;
+  static const MANAGE_NOTIFICATION = _Paths.MANAGE_NOTIFICATION;
 }
 
 abstract class _Paths {
@@ -39,4 +44,9 @@ abstract class _Paths {
   static const CHAT_USER_LIST = '/chat-user-list';
   static const CHAT_MESSAGE = '/chat-message';
   static const EDIT_PROFILE = '/edit-profile';
+  static const REPORTED_ACCOUNTS = '/reported-accounts';
+  static const HELP_SUPPORT = '/help-support';
+  static const TERMS_OF_USE = '/terms-of-use';
+  static const PRIVACY_POLICY = '/privacy-policy';
+  static const MANAGE_NOTIFICATION = '/manage-notification';
 }

@@ -204,6 +204,7 @@ class AppTextTheme {
         color: colors.caption,
         fontFamily: fontFamily,
       ),
+
       titleMedium: AppTextThemeStyle.titleMedium(
         color: colors.caption,
         fontFamily: regular,
@@ -218,7 +219,7 @@ class AppTextTheme {
       ),
       bodyMedium: AppTextThemeStyle.bodyMedium(
         color: colors.text,
-        fontFamily: fontFamily,
+        fontFamily: semiBold,
       ),
       bodyLarge: AppTextThemeStyle.bodyLarge(
         color: colors.text,
