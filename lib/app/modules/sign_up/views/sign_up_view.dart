@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+
 import '../../../../common/common_methods.dart';
 import '../../../../common/common_widgets.dart';
 import '../../../../common/progress_bar.dart';
@@ -9,7 +10,7 @@ import '../../../../constants/string_constants.dart';
 import '../controllers/sign_up_controller.dart';
 
 class SignUpView extends GetView<SignUpController> {
-  const SignUpView({super.key});
+  const SignUpView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -32,9 +33,7 @@ class SignUpView extends GetView<SignUpController> {
                       SizedBox(height: 50.px),
                       Center(
                         child: CommonMethods.appIcons(
-                          assetName: IconConstants.icLogo,
-                          height: 166.px,
-                        ),
+                            assetName: IconConstants.icLogo, height: 166.px),
                       ),
                       SizedBox(height: 32.px),
                       Center(
@@ -50,10 +49,44 @@ class SignUpView extends GetView<SignUpController> {
                         controller: controller.fullNameController,
                       ),
                       SizedBox(height: 16.px),
-                      CommonWidgets.commonTextFieldForLoginSignUP(
-                        title: StringConstants.mobilePhoneNumber,
-                        hintText: StringConstants.enterHere,
-                        controller: controller.mobilePhoneNumberController,
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          Expanded(
+                            child:
+                            CommonWidgets.commonTextFieldForLoginSignUP(
+                              title: StringConstants.mobilePhoneNumber,
+                              hintText: StringConstants.enterHere,
+                              controller: controller.mobilePhoneNumberController,
+                            ),
+                          ),
+                          SizedBox(width: 6.px),
+                          InkWell(
+                            onTap: () =>
+                                controller.clickOnCountryField(),
+                            borderRadius:
+                            BorderRadius.circular(14.px),
+                            child: Container(
+                              height: 54.px,
+                              width: 54.px,
+                              decoration: BoxDecoration(
+                                color: const Color(0xffF3F3F3),
+                                borderRadius: BorderRadius.circular(6.px),
+                              ),
+                              child: Center(
+                                child: Text(
+                                  controller
+                                      .countryCodeShow.value,
+                                  style: Theme.of(Get.context!)
+                                      .textTheme
+                                      .headlineMedium
+                                      ?.copyWith(fontSize: 14.px),
+                                  maxLines: 1,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
                       SizedBox(height: 16.px),
                       CommonWidgets.commonTextFieldForLoginSignUP(
@@ -64,7 +97,7 @@ class SignUpView extends GetView<SignUpController> {
                       SizedBox(height: 16.px),
                       CommonWidgets.commonTextFieldForLoginSignUP(
                         title: StringConstants.dob,
-                        hintText: StringConstants.enterHere,
+                        hintText: StringConstants.dobHint,
                         controller: controller.dobController,
                       ),
                       SizedBox(height: 16.px),
@@ -74,6 +107,7 @@ class SignUpView extends GetView<SignUpController> {
                       ),
                       SizedBox(height: 16.px),
                       Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           gender(
                             title: StringConstants.male,
@@ -101,7 +135,7 @@ class SignUpView extends GetView<SignUpController> {
                           ),
                         ],
                       ),
-                      SizedBox(height: 22.px),
+                      SizedBox(height: 130.px),
                       CommonWidgets.commonElevatedButton(
                         onPressed: () => controller.clickOnContinueButton(),
                         child: const Text(StringConstants.continueText),
@@ -110,10 +144,8 @@ class SignUpView extends GetView<SignUpController> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text(
-                            StringConstants.alreadyAMember,
-                            style: Theme.of(context).textTheme.labelLarge,
-                          ),
+                          Text(StringConstants.alreadyAMember,
+                              style: Theme.of(context).textTheme.labelLarge),
                           InkWell(
                             onTap: () => controller.clickOnLoginButton(),
                             borderRadius: BorderRadius.circular(4.px),
@@ -121,11 +153,14 @@ class SignUpView extends GetView<SignUpController> {
                               padding: EdgeInsets.symmetric(horizontal: 4.px),
                               child: Text(
                                 StringConstants.login,
-                                style: Theme.of(context).textTheme.displaySmall
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .displaySmall
                                     ?.copyWith(
                                       letterSpacing: .2.px,
                                       decoration: TextDecoration.underline,
-                                      decorationColor: Theme.of(context).primaryColor,
+                                      decorationColor:
+                                          Theme.of(context).primaryColor,
                                     ),
                               ),
                             ),
@@ -144,7 +179,10 @@ class SignUpView extends GetView<SignUpController> {
     });
   }
 
-  Widget gender({required String title, required Gender value, required ValueChanged? onChanged}) {
+  Widget gender(
+      {required String title,
+      required Gender value,
+      required ValueChanged? onChanged}) {
     return Row(
       children: [
         Theme(
@@ -165,5 +203,4 @@ class SignUpView extends GetView<SignUpController> {
       ],
     );
   }
-
 }

@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
+import '../../../routes/app_pages.dart';
+
 class ResetPasswordController extends GetxController {
   final count = 0.obs;
 
@@ -25,5 +27,7 @@ class ResetPasswordController extends GetxController {
 
   void increment() => count.value++;
 
-  clickOnSubmitButton() {}
+  clickOnSubmitButton() {
+    Get.toNamed(Routes.NAV_BAR);
+  }
 }

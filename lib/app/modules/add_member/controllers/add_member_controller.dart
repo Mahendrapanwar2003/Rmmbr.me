@@ -1,25 +1,21 @@
-import 'package:country_picker/country_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
-import '../../../routes/app_pages.dart';
+import '../../sign_up/controllers/sign_up_controller.dart';
 
-enum Gender { male, female, nonBinary }
-
-class SignUpController extends GetxController {
-  Gender? gender;
-
+class AddMemberController extends GetxController {
   final count = 0.obs;
-
+  Gender? gender;
   final inAsyncCall = false.obs;
+  TextEditingController relationController = TextEditingController();
   TextEditingController fullNameController = TextEditingController();
   TextEditingController mobilePhoneNumberController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController dobController = TextEditingController();
-
+  TextEditingController countryController = TextEditingController();
+  TextEditingController cityController = TextEditingController();
   final countryCode = 'IN'.obs;
   final countryCodeShow = '+91'.obs;
-
 
   @override
   void onInit() {
@@ -38,23 +34,7 @@ class SignUpController extends GetxController {
 
   void increment() => count.value++;
 
-  clickOnLoginButton() {
-    Get.toNamed(Routes.LOGIN);
-  }
+  clickOnCountryField() {}
 
-  clickOnContinueButton() {
-    Get.toNamed(Routes.SIGN_UP_SECOND);
-  }
-
-  clickOnCountryField() {
-    return showCountryPicker(
-      context: Get.context!,
-      showPhoneCode: true,
-      searchAutofocus: true,
-      onSelect: (Country country) {
-        countryCode.value = country.countryCode;
-        countryCodeShow.value = "+ ${country.phoneCode}";
-      },
-    );
-  }
+  clickOnSaveChangesButton() {}
 }

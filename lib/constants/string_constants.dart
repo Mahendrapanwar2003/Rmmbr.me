@@ -52,4 +52,13 @@ class StringConstants {
   static const String wouldYouLikeToLogout = "Would you like to logout?";
   static const String exit = "EXIT";
   static const String doYouWantToExitAnApp = "Do you want to exit an App?";
+  static const String emailOrMobilePhoneNumber = 'Email or Mobile Phone Number';
+  static const String previousPage = 'previous page';
+  static const String forgotPasswordCapital = 'FORGOT PASSWORD';
+  static const String dobHint = 'MM/DD/YYYY';
+  static const String familyTree = 'FAMILY TREE';
+  static const String editMember = 'Edit Member';
+  static const String saveChanges = 'Save Changes';
+  static const String relation = 'Relation';
+
 }

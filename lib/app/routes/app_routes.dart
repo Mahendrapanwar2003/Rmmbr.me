@@ -19,6 +19,10 @@ abstract class Routes {
   static const CHAT_USER_LIST = _Paths.CHAT_USER_LIST;
   static const CHAT_MESSAGE = _Paths.CHAT_MESSAGE;
   static const EDIT_PROFILE = _Paths.EDIT_PROFILE;
+  static const SPLASH = _Paths.SPLASH;
+  static const FAMILY_TREE = _Paths.FAMILY_TREE;
+  static const EDIT_MEMBER = _Paths.EDIT_MEMBER;
+  static const ADD_MEMBER = _Paths.ADD_MEMBER;
 }
 
 abstract class _Paths {
@@ -39,4 +43,8 @@ abstract class _Paths {
   static const CHAT_USER_LIST = '/chat-user-list';
   static const CHAT_MESSAGE = '/chat-message';
   static const EDIT_PROFILE = '/edit-profile';
+  static const SPLASH = '/splash';
+  static const FAMILY_TREE = '/family-tree';
+  static const EDIT_MEMBER = '/edit-member';
+  static const ADD_MEMBER = '/add-member';
 }

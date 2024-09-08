@@ -11,6 +11,11 @@ class SignUpSecondController extends GetxController {
   TextEditingController createPasswordController = TextEditingController();
   TextEditingController reEnterPasswordController = TextEditingController();
 
+  final countryValue = 'India'.obs;
+  final cityValue = 'Indore'.obs;
+
+  final acceptTermsOfUseValue = true.obs;
+
   @override
   void onInit() {
     super.onInit();
@@ -34,5 +39,9 @@ class SignUpSecondController extends GetxController {
 
   clickOnLoginButton() {
     Get.toNamed(Routes.LOGIN);
+  }
+
+  clickOnAcceptTermsOfUseCheckBox() {
+    acceptTermsOfUseValue.value = !acceptTermsOfUseValue.value;
   }
 }

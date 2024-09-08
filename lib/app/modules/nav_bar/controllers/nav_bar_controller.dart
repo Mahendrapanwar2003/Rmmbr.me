@@ -8,11 +8,10 @@ import 'package:new_pro/app/modules/chat/views/chat_view.dart';
 import 'package:new_pro/app/modules/home/views/home_view.dart';
 import 'package:new_pro/app/modules/profile/controllers/profile_controller.dart';
 import 'package:new_pro/app/modules/profile/views/profile_view.dart';
-import 'package:new_pro/app/modules/tree/controllers/tree_controller.dart';
-import 'package:new_pro/app/modules/tree/views/tree_view.dart';
-
 import '../../../../common/common_widgets.dart';
 import '../../../../constants/string_constants.dart';
+import '../../family_tree/controllers/family_tree_controller.dart';
+import '../../family_tree/views/family_tree_view.dart';
 
 final selectedIndex = 0.obs;
 class NavBarController extends GetxController {
@@ -41,11 +40,11 @@ class NavBarController extends GetxController {
       case 0:
         return const HomeView();
       case 1:
-        Get.delete<TreeController>();
-        Get.lazyPut<TreeController>(
-          () => TreeController(),
+        Get.delete<FamilyTreeController>();
+        Get.lazyPut<FamilyTreeController>(
+          () => FamilyTreeController(),
         );
-        return const TreeView();
+        return const FamilyTreeView();
       case 2:
         Get.delete<CalendarController>();
         Get.lazyPut<CalendarController>(

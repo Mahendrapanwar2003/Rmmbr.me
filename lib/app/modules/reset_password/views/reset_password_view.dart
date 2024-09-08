@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+
 import '../../../../common/common_methods.dart';
 import '../../../../common/common_widgets.dart';
 import '../../../../common/progress_bar.dart';
@@ -9,7 +10,7 @@ import '../../../../constants/string_constants.dart';
 import '../controllers/reset_password_controller.dart';
 
 class ResetPasswordView extends GetView<ResetPasswordController> {
-  const ResetPasswordView({super.key});
+  const ResetPasswordView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -32,9 +33,7 @@ class ResetPasswordView extends GetView<ResetPasswordController> {
                       SizedBox(height: 50.px),
                       Center(
                         child: CommonMethods.appIcons(
-                          assetName: IconConstants.icLogo,
-                          height: 166.px,
-                        ),
+                            assetName: IconConstants.icLogo, height: 166.px),
                       ),
                       SizedBox(height: 32.px),
                       Center(

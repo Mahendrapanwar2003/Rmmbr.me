@@ -10,4 +10,9 @@ class ImageConstants {
   static const String imagePrivacyPolicy =
       'assets/images/image_privacy_policy.png';
   static const String imageSupport = 'assets/images/image_support.png';
+  static const String imageLogoSplash = 'assets/images/image_logo_splash.png';
+
 }
+
+
+

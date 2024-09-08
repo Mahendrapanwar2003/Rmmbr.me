@@ -111,6 +111,13 @@ class IconConstants {
   static const String icAudio = 'assets/icons/ic_audio.svg';
   static const String icGallery = 'assets/icons/ic_gallery.svg';
   static const String notification = 'assets/icons/notification.svg';
+  static const String icVerticalEllipsis = 'assets/icons/ic_vertical_ellipsis.svg';
+  static const String icAddStory = 'assets/icons/ic_add_story.svg';
+  static const String icDallasUs = 'assets/icons/ic_dallas_us.svg';
+  static const String icDeleteMember = 'assets/icons/ic_delete_member.svg';
+  static const String icEditMember = 'assets/icons/ic_edit_member.svg';
+  static const String icReportMember = 'assets/icons/ic_report_member.svg';
+  static const String icCross = 'assets/icons/ic_cross.svg';
 }
 
 class IconConstantsPng {

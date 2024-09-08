@@ -298,6 +298,89 @@ class CommonWidgets {
     );
   }
 
+
+
+  static Widget commonDropDownForLoginSignUP(
+      {double? elevation,
+        String? hintText,
+        String? labelText,
+        String? errorText,
+        String? title,
+        TextStyle? titleStyle,
+        EdgeInsetsGeometry? contentPadding,
+        TextEditingController? controller,
+        int? maxLines,
+        double? cursorHeight,
+        bool wantBorder = false,
+        Color? fillColor,
+        Color? initialBorderColor,
+        double? initialBorderWidth,
+        TextInputType? keyboardType,
+        double? borderRadius,
+        double? maxHeight,
+        TextStyle? hintStyle,
+        TextStyle? style,
+        TextStyle? labelStyle,
+        TextStyle? errorStyle,
+        List<TextInputFormatter>? inputFormatters,
+        TextCapitalization textCapitalization = TextCapitalization.none,
+        bool autofocus = false,
+        bool readOnly = false,
+        bool hintTextColor = false,
+        Widget? suffixIcon,
+        Widget? prefixIcon,
+        AutovalidateMode? autoValidateMode,
+        int? maxLength,
+        GestureTapCallback? onTap,
+        bool obscureText = false,
+        FocusNode? focusNode,
+        MaxLengthEnforcement? maxLengthEnforcement,
+        bool? filled,
+        ValueChanged? onChanged,
+        dynamic value,
+        List<DropdownMenuItem<String>>? items,
+        bool isCard = false}) {
+    return Column(
+      children: [
+        if (title != null && title.isNotEmpty)
+          Row(
+            children: [
+              CommonMethods.textViewLinearGradient(text: title, value: isCard),
+            ],
+          ),
+        if (title != null && title.isNotEmpty) SizedBox(height: 8.px),
+        Container(
+          padding: EdgeInsets.symmetric(horizontal: 14.px),
+          decoration: BoxDecoration(
+            color: const Color(0xffF3F3F3),
+            borderRadius: BorderRadius.circular(borderRadius ?? 6.px),
+          ),
+          child: DropdownButton<String>(
+            style: style ??
+                Theme.of(Get.context!)
+                    .textTheme
+                    .headlineMedium
+                    ?.copyWith(fontSize: 14.px),
+            value: value,
+            isExpanded: true,
+            icon: Icon(
+              Icons.keyboard_arrow_down_sharp,
+              color: Theme.of(Get.context!).textTheme.titleMedium?.color,
+            ),
+            underline: const SizedBox(),
+            items: items,
+            hint: Text(
+              hintText ?? '',
+              style: Theme.of(Get.context!).textTheme.titleMedium,
+            ),
+            onChanged: onChanged,
+          ),
+        ),
+      ],
+    );
+  }
+
+
   static Widget commonTextFieldDropDownForLoginSignUPNew(
       {double? elevation,
       String? hintText,

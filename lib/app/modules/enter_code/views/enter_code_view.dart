@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+
 import '../../../../common/common_methods.dart';
 import '../../../../common/common_widgets.dart';
 import '../../../../common/progress_bar.dart';
@@ -9,7 +10,7 @@ import '../../../../constants/string_constants.dart';
 import '../controllers/enter_code_controller.dart';
 
 class EnterCodeView extends GetView<EnterCodeController> {
-  const EnterCodeView({super.key});
+  const EnterCodeView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -32,9 +33,7 @@ class EnterCodeView extends GetView<EnterCodeController> {
                       SizedBox(height: 50.px),
                       Center(
                         child: CommonMethods.appIcons(
-                          assetName: IconConstants.icLogo,
-                          height: 166.px,
-                        ),
+                            assetName: IconConstants.icLogo, height: 166.px),
                       ),
                       SizedBox(height: 32.px),
                       Center(
@@ -44,11 +43,9 @@ class EnterCodeView extends GetView<EnterCodeController> {
                         ),
                       ),
                       SizedBox(height: 32.px),
-                      Center(
-                        child: Text(
-                          StringConstants.enterOtpCodeHere,
-                          style: Theme.of(Get.context!).textTheme.labelMedium,
-                        ),
+                      Text(
+                        StringConstants.enterOtpCodeHere,
+                        style: Theme.of(Get.context!).textTheme.labelMedium,
                       ),
                       SizedBox(height: 16.px),
                       CommonWidgets.commonOtpView(),
@@ -61,10 +58,8 @@ class EnterCodeView extends GetView<EnterCodeController> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text(
-                            StringConstants.didNotReceiveACode,
-                            style: Theme.of(context).textTheme.labelLarge,
-                          ),
+                          Text(StringConstants.didNotReceiveACode,
+                              style: Theme.of(context).textTheme.labelLarge),
                           InkWell(
                             onTap: () => controller.clickOnResendButton(),
                             borderRadius: BorderRadius.circular(4.px),
@@ -72,11 +67,14 @@ class EnterCodeView extends GetView<EnterCodeController> {
                               padding: EdgeInsets.symmetric(horizontal: 4.px),
                               child: Text(
                                 StringConstants.resend,
-                                style: Theme.of(context).textTheme.displaySmall
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .displaySmall
                                     ?.copyWith(
                                       letterSpacing: .2.px,
                                       decoration: TextDecoration.underline,
-                                      decorationColor: Theme.of(context).primaryColor,
+                                      decorationColor:
+                                          Theme.of(context).primaryColor,
                                     ),
                               ),
                             ),
