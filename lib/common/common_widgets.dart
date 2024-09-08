@@ -9,6 +9,7 @@ import 'package:get/get.dart';
 // ignore: depend_on_referenced_packages
 import 'package:http/http.dart' as http;
 import 'package:internet_connection_checker/internet_connection_checker.dart';
+import 'package:new_pro/app/routes/app_pages.dart';
 import 'package:new_pro/common/colors.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
@@ -735,7 +736,11 @@ class CommonWidgets {
     );*/
   }
 
-  static Widget commonAppBarView({bool isBackButtonVisible = true, required String appBarTitle}) => Container(
+  static Widget commonAppBarView({
+    bool isBackButtonVisible = true,
+    bool isNotificationClick = true,
+    required String appBarTitle,
+  }) => Container(
     width: double.infinity,
     height: 120.px,
     padding: EdgeInsetsDirectional.only(start: 24.px, end: 24.px, top: 50.px, bottom: 16.px),
@@ -805,10 +810,17 @@ class CommonWidgets {
                 height: 24.px,
               ),
               SizedBox(width: 12.px),
-              CommonMethods.appIcons(
-                assetName: IconConstants.notification,
-                width: 24.px,
-                height: 24.px,
+              GestureDetector(
+                onTap: () {
+                  if(isNotificationClick) {
+                    Get.toNamed(Routes.NOTIFICATION);
+                  }
+                },
+                child: CommonMethods.appIcons(
+                  assetName: IconConstants.notification,
+                  width: 24.px,
+                  height: 24.px,
+                ),
               ),
             ],
           ),

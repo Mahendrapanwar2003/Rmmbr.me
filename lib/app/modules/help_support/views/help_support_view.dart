@@ -92,28 +92,31 @@ class HelpSupportView extends GetView<HelpSupportController> {
           mainAxisAlignment: MainAxisAlignment.end,
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Container(
-                  padding: EdgeInsets.symmetric(horizontal: 12.px,vertical: 8.px),
-                  margin: EdgeInsets.only(right: 13.px),
-                  decoration: BoxDecoration(
-                    color: Theme.of(context).colorScheme.onPrimary,
-                    borderRadius: BorderRadius.circular(4.px)
+            GestureDetector(
+              onTap: () => controller.clickOnNeedHelpView(),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Container(
+                    padding: EdgeInsets.symmetric(horizontal: 12.px,vertical: 8.px),
+                    margin: EdgeInsets.only(right: 13.px),
+                    decoration: BoxDecoration(
+                      color: Theme.of(context).colorScheme.onPrimary,
+                      borderRadius: BorderRadius.circular(4.px)
+                    ),
+                    child: Text(
+                      'Need Help?',
+                      style: Theme.of(context).textTheme.labelLarge,
+                    ),
                   ),
-                  child: Text(
-                    'Need Help?',
-                    style: Theme.of(context).textTheme.labelLarge,
+                  CommonMethods.appIcons(
+                    assetName: IconConstants.icHelpSupport,
+                    height: 48.px,
+                    width: 48.px
                   ),
-                ),
-                CommonMethods.appIcons(
-                  assetName: IconConstants.icHelpSupport,
-                  height: 48.px,
-                  width: 48.px
-                ),
-              ],
+                ],
+              ),
             ),
           ],
         ),

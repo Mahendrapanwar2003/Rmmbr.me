@@ -16,12 +16,10 @@ class HomeView extends GetView<HomeController> {
     return Scaffold(
       body: Column(
         children: [
-          CommonWidgets.commonAppBarView(
-              isBackButtonVisible: false, appBarTitle: StringConstants.home),
+          CommonWidgets.commonAppBarView(isBackButtonVisible: false, appBarTitle: StringConstants.home),
           Expanded(
             child: ListView(
-              padding: EdgeInsetsDirectional.symmetric(
-                  horizontal: SizeConstants.bodyHorizontalPadding),
+              padding: EdgeInsetsDirectional.symmetric(horizontal: SizeConstants.bodyHorizontalPadding),
               children: [
                 SizedBox(height: 24.px),
                 commonCardForSettingView(text: 'Rmmbr'),
@@ -55,7 +53,7 @@ class HomeView extends GetView<HomeController> {
                 ListView.builder(
                   padding: EdgeInsets.zero,
                   shrinkWrap: true,
-                  physics: NeverScrollableScrollPhysics(),
+                  physics: const NeverScrollableScrollPhysics(),
                   itemCount: 3,
                   itemBuilder: (context, index) => postView(),
                 ),
@@ -68,8 +66,7 @@ class HomeView extends GetView<HomeController> {
     );
   }
 
-  Widget commonCardForSettingView(
-          {required String text, GestureTapCallback? onTap}) =>
+  Widget commonCardForSettingView({required String text, GestureTapCallback? onTap}) =>
       GestureDetector(
         onTap: onTap,
         child: Container(
@@ -90,7 +87,7 @@ class HomeView extends GetView<HomeController> {
                 text,
                 style: Theme.of(Get.context!).textTheme.labelSmall,
               ),
-              Spacer(),
+              const Spacer(),
               CommonMethods.appIcons(
                   assetName: IconConstants.icGrayMenu,
                   height: 20.px,

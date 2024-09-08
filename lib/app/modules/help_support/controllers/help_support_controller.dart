@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:new_pro/app/routes/app_pages.dart';
 
 class HelpSupportController extends GetxController {
 
@@ -30,5 +31,9 @@ class HelpSupportController extends GetxController {
       helpSupportSelectedValue.value = index.toString();
     }
     count.value++;
+  }
+
+  void clickOnNeedHelpView() {
+    Get.toNamed(Routes.HELP_SUPPORT_CHAT);
   }
 }

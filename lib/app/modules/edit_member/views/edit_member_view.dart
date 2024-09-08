@@ -178,10 +178,11 @@ class EditMemberView extends GetView<EditMemberController> {
     );
   }
 
-  Widget gender(
-      {required String title,
-      required Gender value,
-      required ValueChanged? onChanged}) {
+  Widget gender({
+    required String title,
+    required Gender value,
+    required ValueChanged? onChanged,
+  }) {
     return Row(
       children: [
         Theme(
