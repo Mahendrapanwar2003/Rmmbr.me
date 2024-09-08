@@ -6,6 +6,7 @@ import '../../../../common/common_methods.dart';
 import '../../../../common/common_widgets.dart';
 import '../../../../common/progress_bar.dart';
 import '../../../../constants/icons_constant.dart';
+import '../../../../constants/size_constants.dart';
 import '../../../../constants/string_constants.dart';
 import '../controllers/reset_password_controller.dart';
 
@@ -26,7 +27,7 @@ class ResetPasswordView extends GetView<ResetPasswordController> {
               padding: EdgeInsets.zero,
               children: [
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 24.px),
+                  padding: EdgeInsets.symmetric(horizontal: SizeConstants.bodyHorizontalPadding,),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [

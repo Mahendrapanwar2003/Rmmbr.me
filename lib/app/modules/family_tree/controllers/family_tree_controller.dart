@@ -7,6 +7,7 @@ import '../../../../common/common_methods.dart';
 import '../../../../common/common_widgets.dart';
 import '../../../../constants/icons_constant.dart';
 import '../../../../constants/size_constants.dart';
+import '../../profile/views/profile_view.dart';
 
 class FamilyTreeController extends GetxController
     with GetSingleTickerProviderStateMixin {
@@ -77,6 +78,10 @@ class FamilyTreeController extends GetxController
                   height: 1.px,
                 ),
                 ListTile(
+                  onTap: () {
+                    /* Get.back();
+                    Get.toNamed(Routes.ADD_MEMBER);*/
+                  },
                   title: Text(
                     'Dallas , US',
                     style: Theme.of(Get.context!).textTheme.labelLarge,
@@ -107,6 +112,7 @@ class FamilyTreeController extends GetxController
                   height: 1.px,
                 ),
                 ListTile(
+                  onTap: () => clickOnDeleteMember(),
                   title: Text(
                     'Delete Member',
                     style: Theme.of(Get.context!).textTheme.labelLarge,
@@ -208,4 +214,96 @@ class FamilyTreeController extends GetxController
         maxLines: 1,
         overflow: TextOverflow.ellipsis,
       );
+
+  void clickOnDeleteMember() {
+    showDialog(
+      context: Get.context!,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return Obx(
+          () {
+            count.value;
+            return Dialog(
+              insetPadding: EdgeInsets.symmetric(
+                  horizontal: SizeConstants.bodyHorizontalPadding),
+              backgroundColor: Theme.of(context).colorScheme.onPrimary,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(16),
+              ),
+              child: Padding(
+                padding: EdgeInsets.symmetric(
+                    horizontal: SizeConstants.bodyHorizontalPadding,
+                    vertical: 24.px),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        Text(
+                          'Delete Member',
+                          style: Theme.of(context).textTheme.headlineLarge,
+                        ),
+                        GestureDetector(
+                          child: Icon(
+                            Icons.close,
+                            color: Theme.of(context).colorScheme.primary,
+                          ),
+                          onTap: () => Get.back(),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 14.px),
+                    Text(
+                      'Confirm delete this family member?',
+                      style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                          color: Theme.of(context).colorScheme.surface),
+                    ),
+                    SizedBox(height: 24.px),
+                    Row(
+                      children: [
+                        Expanded(
+                            child: SizedBox(
+                          height: 42.px,
+                          child: CommonWidgets.commonElevatedButton(
+                            wantBorder: false,
+                            buttonColor: Theme.of(context)
+                                .colorScheme
+                                .surface
+                                .withOpacity(.4.px),
+                            onPressed: () {},
+                            child: Text(
+                              'Cancel',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .labelSmall
+                                  ?.copyWith(
+                                  color: Theme.of(Get.context!).colorScheme.primary
+                                  ),
+                            ),
+                          ),
+                        )),
+                        SizedBox(width: 10.px),
+                        Expanded(
+                          child: SizedBox(
+                            height: 42.px,
+                            child: const ProfileView().commonEleButtonView(
+                              buttonText: 'Save',
+                              onPressed: () => Get.back(),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            );
+          },
+        );
+      },
+    );
+  }
 }

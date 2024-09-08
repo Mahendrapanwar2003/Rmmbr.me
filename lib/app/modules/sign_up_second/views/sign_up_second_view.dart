@@ -6,6 +6,7 @@ import '../../../../common/common_methods.dart';
 import '../../../../common/common_widgets.dart';
 import '../../../../common/progress_bar.dart';
 import '../../../../constants/icons_constant.dart';
+import '../../../../constants/size_constants.dart';
 import '../../../../constants/string_constants.dart';
 import '../controllers/sign_up_second_controller.dart';
 
@@ -26,7 +27,7 @@ class SignUpSecondView extends GetView<SignUpSecondController> {
               padding: EdgeInsets.zero,
               children: [
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 24.px),
+                  padding: EdgeInsets.symmetric(horizontal: SizeConstants.bodyHorizontalPadding,),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -67,7 +68,7 @@ class SignUpSecondView extends GetView<SignUpSecondController> {
                         title: StringConstants.country,
                         hintText: StringConstants.enterHere,
                         controller: controller.countryController,
-                        value: controller.countryValue.value,
+                       /* value: controller.countryValue.value,
                         items: <String>[
                           'India',
                           'Uk',
@@ -80,14 +81,14 @@ class SignUpSecondView extends GetView<SignUpSecondController> {
                         }).toList(),
                         onChanged: (value) {
                           controller.countryValue.value = value ?? '';
-                        },
+                        },*/
                       ),
                       SizedBox(height: 16.px),
                       CommonWidgets.commonDropDownForLoginSignUP(
                         title: StringConstants.city,
                         hintText: StringConstants.enterHere,
                         controller: controller.cityController,
-                        value: controller.cityValue.value,
+                        /*value: controller.cityValue.value,
                         items: <String>[
                           'Indore',
                           'Ujjain',
@@ -100,7 +101,7 @@ class SignUpSecondView extends GetView<SignUpSecondController> {
                         }).toList(),
                         onChanged: (value) {
                           controller.cityValue.value = value ?? '';
-                        },
+                        },*/
                       ),/*
                       SizedBox(height: 16.px),
                       CommonWidgets.commonTextFieldForLoginSignUP(

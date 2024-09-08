@@ -91,14 +91,17 @@ class IconConstants {
   static const String icArabicFlag = 'assets/icons/ic_arabic_flag.svg';
   static const String icDeleteUser = 'assets/icons/ic_delete_user.svg';
   static const String icLogo = 'assets/icons/ic_logo.svg';
-  static const String icAddProfileImage = 'assets/icons/ic_add_profile_image.svg';
+  static const String icAddProfileImage =
+      'assets/icons/ic_add_profile_image.svg';
   static const String icInActiveTree = 'assets/icons/ic_in_active_tree.svg';
   static const String icActiveTree = 'assets/icons/ic_active_tree.svg';
-  static const String icInActiveCalendar = 'assets/icons/ic_in_active_calendar.svg';
+  static const String icInActiveCalendar =
+      'assets/icons/ic_in_active_calendar.svg';
   static const String icActiveCalendar = 'assets/icons/ic_active_calendar.svg';
   static const String icInActiveChat = 'assets/icons/ic_in_active_chat.svg';
   static const String icActiveChat = 'assets/icons/ic_active_chat.svg';
-  static const String icInActiveProfile = 'assets/icons/ic_in_active_profile.svg';
+  static const String icInActiveProfile =
+      'assets/icons/ic_in_active_profile.svg';
   static const String icActiveProfile = 'assets/icons/ic_active_profile.svg';
   static const String icInActiveHome = 'assets/icons/ic_in_active_home.svg';
   static const String icActiveHome = 'assets/icons/ic_active_home.svg';
@@ -111,13 +114,20 @@ class IconConstants {
   static const String icAudio = 'assets/icons/ic_audio.svg';
   static const String icGallery = 'assets/icons/ic_gallery.svg';
   static const String notification = 'assets/icons/notification.svg';
-  static const String icVerticalEllipsis = 'assets/icons/ic_vertical_ellipsis.svg';
+  static const String icVerticalEllipsis =
+      'assets/icons/ic_vertical_ellipsis.svg';
   static const String icAddStory = 'assets/icons/ic_add_story.svg';
   static const String icDallasUs = 'assets/icons/ic_dallas_us.svg';
   static const String icDeleteMember = 'assets/icons/ic_delete_member.svg';
   static const String icEditMember = 'assets/icons/ic_edit_member.svg';
   static const String icReportMember = 'assets/icons/ic_report_member.svg';
   static const String icCross = 'assets/icons/ic_cross.svg';
+  static const String icHelpSupport = 'assets/icons/ic_help_support.svg';
+  static const String icTwoRings = 'assets/icons/ic_two_ring.svg';
+  static const String icLike = 'assets/icons/ic_like.svg';
+  static const String icMessage = 'assets/icons/ic_message.svg';
+  static const String icShare = 'assets/icons/ic_share.svg';
+  static const String icGrayMenu = 'assets/icons/ic_gray_menu.svg';
 }
 
 class IconConstantsPng {

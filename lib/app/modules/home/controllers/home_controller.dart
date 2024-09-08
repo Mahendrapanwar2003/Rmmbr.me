@@ -5,6 +5,12 @@ class HomeController extends GetxController {
 
   final count = 0.obs;
 
+  List postCardImageList = [
+    'assets/dummy_img/w1.png',
+    'assets/dummy_img/w2.png',
+    'assets/dummy_img/w3.png',
+  ];
+
   @override
   void onInit() {
     super.onInit();

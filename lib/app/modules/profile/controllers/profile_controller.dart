@@ -109,11 +109,12 @@ class ProfileController extends GetxController {
             count.value;
             return Dialog(
               insetPadding: EdgeInsets.symmetric(horizontal: SizeConstants.bodyHorizontalPadding),
+              backgroundColor: Theme.of(context).colorScheme.onPrimary,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(16),
               ),
               child:  Padding(
-                padding: EdgeInsets.symmetric(horizontal: 24.px,vertical: 24.px),
+                padding: EdgeInsets.symmetric(horizontal: SizeConstants.bodyHorizontalPadding,vertical: 24.px),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [

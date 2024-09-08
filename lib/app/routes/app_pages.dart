@@ -46,15 +46,13 @@ import '../modules/splash/bindings/splash_binding.dart';
 import '../modules/splash/views/splash_view.dart';
 import '../modules/terms_of_use/bindings/terms_of_use_binding.dart';
 import '../modules/terms_of_use/views/terms_of_use_view.dart';
-import '../modules/tree/bindings/tree_binding.dart';
-import '../modules/tree/views/tree_view.dart';
 
 part 'app_routes.dart';
 
 class AppPages {
   AppPages._();
 
-  static const INITIAL = Routes.NAV_BAR;
+  static const INITIAL = Routes.SPLASH;
 
   static final routes = [
     GetPage(

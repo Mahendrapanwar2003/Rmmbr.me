@@ -255,7 +255,7 @@ class ProfileView extends GetView<ProfileController> {
     onTap: onTap,
     child: Container(
       margin: EdgeInsets.only(top: 16.px),
-      padding: EdgeInsets.symmetric(vertical: 17.px,horizontal: 24.px),
+      padding: EdgeInsets.symmetric(vertical: 17.px,horizontal: SizeConstants.bodyHorizontalPadding,),
       decoration: BoxDecoration(
         color: Theme.of(Get.context!).colorScheme.onPrimary,
         borderRadius: BorderRadius.circular(12.px),

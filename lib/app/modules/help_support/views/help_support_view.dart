@@ -27,7 +27,7 @@ class HelpSupportView extends GetView<HelpSupportController> {
                   return Padding(
                     padding: EdgeInsets.only(bottom: index != 9 ? 16.px : 50.px),
                     child: Container(
-                      padding: EdgeInsets.symmetric(horizontal: 24.px,vertical: 16.px),
+                      padding: EdgeInsets.symmetric(horizontal: SizeConstants.bodyHorizontalPadding,vertical: 16.px),
                       decoration: BoxDecoration(
                         color: Theme.of(context).colorScheme.onPrimary,
                         borderRadius: BorderRadius.circular(12.px),

@@ -25,7 +25,7 @@ class StringConstants {
   static const String enterCode = 'ENTER CODE';
   static const String createANewAccount = 'CREATE A NEW ACCOUNT';
   static const String alreadyAMember = "Already a member?";
-  static const String didNotReceiveACode = "Didn't receive a code";
+  static const String didNotReceiveACode = "Didn’t received a code?";
   static const String resend = "Resend";
   static const String addProfileImage = "Add Profile Image";
   static const String enterOtpCodeHere = "Enter OTP Code here";

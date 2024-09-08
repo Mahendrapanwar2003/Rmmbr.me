@@ -111,8 +111,8 @@ class CommonWidgets {
       width: wantContentSizeButton ? width : double.infinity,
       margin: buttonMargin,
       decoration: BoxDecoration(
-        border: Border.all(
-            color: Theme.of(Get.context!).colorScheme.primary, width: 1.px),
+        border: wantBorder ? Border.all(
+            color: Theme.of(Get.context!).colorScheme.primary, width: 1.px):null,
         borderRadius: BorderRadius.circular(borderRadius ?? 32.px),
       ),
       child: ElevatedButton(

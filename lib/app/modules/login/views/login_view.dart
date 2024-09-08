@@ -6,6 +6,7 @@ import '../../../../common/common_methods.dart';
 import '../../../../common/common_widgets.dart';
 import '../../../../common/progress_bar.dart';
 import '../../../../constants/icons_constant.dart';
+import '../../../../constants/size_constants.dart';
 import '../../../../constants/string_constants.dart';
 import '../controllers/login_controller.dart';
 
@@ -26,7 +27,7 @@ class LoginView extends GetView<LoginController> {
               padding: EdgeInsets.zero,
               children: [
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 24.px),
+                  padding: EdgeInsets.symmetric(horizontal: SizeConstants.bodyHorizontalPadding,),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -50,8 +51,8 @@ class LoginView extends GetView<LoginController> {
                             ),
                             underline: const SizedBox(),
                             items: <String>[
-                              'English',
-                              'Hindi',
+                              /*'English',
+                              'Hindi',*/
                             ].map<DropdownMenuItem<String>>((String value) {
                               return DropdownMenuItem<String>(
                                 value: value,
@@ -62,7 +63,7 @@ class LoginView extends GetView<LoginController> {
                               );
                             }).toList(),
                             hint: Text(
-                              "Language",
+                              "English",
                               style:
                                   Theme.of(Get.context!).textTheme.titleMedium,
                             ),
