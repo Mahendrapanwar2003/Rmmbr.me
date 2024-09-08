@@ -28,6 +28,10 @@ abstract class Routes {
   static const TERMS_OF_USE = _Paths.TERMS_OF_USE;
   static const PRIVACY_POLICY = _Paths.PRIVACY_POLICY;
   static const MANAGE_NOTIFICATION = _Paths.MANAGE_NOTIFICATION;
+  static const HELP_SUPPORT_CHAT = _Paths.HELP_SUPPORT_CHAT;
+  static const MY_STORY = _Paths.MY_STORY;
+  static const POST = _Paths.POST;
+  static const NOTIFICATION = _Paths.NOTIFICATION;
 }
 
 abstract class _Paths {
@@ -57,4 +61,8 @@ abstract class _Paths {
   static const TERMS_OF_USE = '/terms-of-use';
   static const PRIVACY_POLICY = '/privacy-policy';
   static const MANAGE_NOTIFICATION = '/manage-notification';
+  static const HELP_SUPPORT_CHAT = '/help-support-chat';
+  static const MY_STORY = '/my-story';
+  static const POST = '/post';
+  static const NOTIFICATION = '/notification';
 }

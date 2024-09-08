@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:new_pro/app/routes/app_pages.dart';
 import 'package:new_pro/common/common_methods.dart';
 import 'package:new_pro/common/common_widgets.dart';
 import 'package:new_pro/constants/icons_constant.dart';
@@ -356,7 +357,7 @@ class ProfileView extends GetView<ProfileController> {
         ),
       ),
       SizedBox(height: 120.px),
-      commonEleButtonView(buttonText: 'Edit Profile', onPressed: () {},)
+      commonEleButtonView(buttonText: 'Edit Profile', onPressed: () => Get.toNamed(Routes.EDIT_PROFILE),)
     ],
   );
 

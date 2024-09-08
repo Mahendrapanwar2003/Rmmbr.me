@@ -22,14 +22,22 @@ import '../modules/forgot_password/bindings/forgot_password_binding.dart';
 import '../modules/forgot_password/views/forgot_password_view.dart';
 import '../modules/help_support/bindings/help_support_binding.dart';
 import '../modules/help_support/views/help_support_view.dart';
+import '../modules/help_support_chat/bindings/help_support_chat_binding.dart';
+import '../modules/help_support_chat/views/help_support_chat_view.dart';
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
 import '../modules/login/bindings/login_binding.dart';
 import '../modules/login/views/login_view.dart';
 import '../modules/manage_notification/bindings/manage_notification_binding.dart';
 import '../modules/manage_notification/views/manage_notification_view.dart';
+import '../modules/my_story/bindings/my_story_binding.dart';
+import '../modules/my_story/views/my_story_view.dart';
 import '../modules/nav_bar/bindings/nav_bar_binding.dart';
 import '../modules/nav_bar/views/nav_bar_view.dart';
+import '../modules/notification/bindings/notification_binding.dart';
+import '../modules/notification/views/notification_view.dart';
+import '../modules/post/bindings/post_binding.dart';
+import '../modules/post/views/post_view.dart';
 import '../modules/privacy_policy/bindings/privacy_policy_binding.dart';
 import '../modules/privacy_policy/views/privacy_policy_view.dart';
 import '../modules/profile/bindings/profile_binding.dart';
@@ -52,7 +60,7 @@ part 'app_routes.dart';
 class AppPages {
   AppPages._();
 
-  static const INITIAL = Routes.SPLASH;
+  static const INITIAL = Routes.NAV_BAR;
 
   static final routes = [
     GetPage(
@@ -169,6 +177,26 @@ class AppPages {
       name: _Paths.MANAGE_NOTIFICATION,
       page: () => const ManageNotificationView(),
       binding: ManageNotificationBinding(),
+    ),
+    GetPage(
+      name: _Paths.HELP_SUPPORT_CHAT,
+      page: () => const HelpSupportChatView(),
+      binding: HelpSupportChatBinding(),
+    ),
+    GetPage(
+      name: _Paths.MY_STORY,
+      page: () => const MyStoryView(),
+      binding: MyStoryBinding(),
+    ),
+    GetPage(
+      name: _Paths.POST,
+      page: () => const PostView(),
+      binding: PostBinding(),
+    ),
+    GetPage(
+      name: _Paths.NOTIFICATION,
+      page: () => const NotificationView(),
+      binding: NotificationBinding(),
     ),
   ];
 }
