@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:new_pro/app/routes/app_pages.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-
 import '../../../../common/common_methods.dart';
 import '../../../../common/common_widgets.dart';
 import '../../../../constants/icons_constant.dart';
@@ -18,7 +17,7 @@ class FamilyTreeController extends GetxController
 
   final selectedOption = ''.obs;
 
-  final List<String> reletionshiipOptions = ['CURRENT', 'FORMER'];
+  final List<String> relationShipOptions = ['CURRENT', 'FORMER'];
 
   @override
   void onInit() {
@@ -176,7 +175,10 @@ class FamilyTreeController extends GetxController
                 ],
               ),
             ),
-            CommonMethods.appIcons(assetName: IconConstants.icCross)
+            GestureDetector(
+              onTap: () => Get.back(),
+              child: CommonMethods.appIcons(assetName: IconConstants.icCross),
+            )
           ],
         ),
       );
@@ -453,13 +455,13 @@ class FamilyTreeController extends GetxController
                       children: [
                         Row(
                           children: List.generate(
-                            reletionshiipOptions.length,
+                            relationShipOptions.length,
                             (index) {
                               return Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: GestureDetector(
                                   onTap: () {
-                                    selectedOption.value = reletionshiipOptions[index];
+                                    selectedOption.value = relationShipOptions[index];
                                   },
                                   child: Row(
                                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -472,7 +474,7 @@ class FamilyTreeController extends GetxController
                                         decoration: BoxDecoration(
                                           shape: BoxShape.circle,
                                           border: Border.all(
-                                            color: selectedOption.value.contains(reletionshiipOptions[index])
+                                            color: selectedOption.value.contains(relationShipOptions[index])
                                                 ? Theme.of(context).colorScheme.primary 
                                                 : Theme.of(context).colorScheme.surface,
                                           ),
@@ -482,7 +484,7 @@ class FamilyTreeController extends GetxController
                                             height: 8.px,
                                             width: 8.px,
                                             decoration: BoxDecoration(
-                                              color: selectedOption.value.contains(reletionshiipOptions[index])
+                                              color: selectedOption.value.contains(relationShipOptions[index])
                                                   ? Theme.of(context).colorScheme.primary
                                                   : Colors.transparent,
                                               shape: BoxShape.circle,
@@ -491,9 +493,9 @@ class FamilyTreeController extends GetxController
                                         ),
                                       ),
                                       Text(
-                                        reletionshiipOptions[index].toUpperCase(),
+                                        relationShipOptions[index].toUpperCase(),
                                         style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                                          color: selectedOption.value.contains(reletionshiipOptions[index])
+                                          color: selectedOption.value.contains(relationShipOptions[index])
                                               ? Theme.of(context).colorScheme.primary
                                               : Theme.of(context).colorScheme.surface,
                                         ),

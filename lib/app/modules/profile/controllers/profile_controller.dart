@@ -55,6 +55,43 @@ class ProfileController extends GetxController {
     'assets/dummy_img/8.png',
     'assets/dummy_img/9.png',
   ];
+
+  final List<Map<String, dynamic>> photosGridItems = [
+    {'crossAxisCellCount': 1, 'mainAxisCellCount': 1, 'image': 'assets/dummy_img/1.png'},
+    {'crossAxisCellCount': 1, 'mainAxisCellCount': 1, 'image': 'assets/dummy_img/2.png'},
+    {'crossAxisCellCount': 2, 'mainAxisCellCount': 2, 'image': 'assets/dummy_img/3.png'},
+    {'crossAxisCellCount': 1, 'mainAxisCellCount': 1, 'image': 'assets/dummy_img/4.png'},
+    {'crossAxisCellCount': 1, 'mainAxisCellCount': 1, 'image': 'assets/dummy_img/5.png'},
+    {'crossAxisCellCount': 2, 'mainAxisCellCount': 2, 'image': 'assets/dummy_img/6.png'},
+    {'crossAxisCellCount': 1, 'mainAxisCellCount': 1, 'image': 'assets/dummy_img/7.png'},
+    {'crossAxisCellCount': 1, 'mainAxisCellCount': 1, 'image': 'assets/dummy_img/1.png'},
+    {'crossAxisCellCount': 1, 'mainAxisCellCount': 1, 'image': 'assets/dummy_img/2.png'},
+    {'crossAxisCellCount': 1, 'mainAxisCellCount': 1, 'image': 'assets/dummy_img/3.png'},
+    {'crossAxisCellCount': 1, 'mainAxisCellCount': 1, 'image': 'assets/dummy_img/4.png'},
+    {'crossAxisCellCount': 1, 'mainAxisCellCount': 1, 'image': 'assets/dummy_img/5.png'},
+    {'crossAxisCellCount': 2, 'mainAxisCellCount': 2, 'image': 'assets/dummy_img/6.png'},
+    {'crossAxisCellCount': 1, 'mainAxisCellCount': 1, 'image': 'assets/dummy_img/7.png'},
+    {'crossAxisCellCount': 1, 'mainAxisCellCount': 1, 'image': 'assets/dummy_img/1.png'},
+    {'crossAxisCellCount': 2, 'mainAxisCellCount': 2, 'image': 'assets/dummy_img/2.png'},
+    {'crossAxisCellCount': 1, 'mainAxisCellCount': 1, 'image': 'assets/dummy_img/3.png'},
+    {'crossAxisCellCount': 1, 'mainAxisCellCount': 1, 'image': 'assets/dummy_img/4.png'},
+    {'crossAxisCellCount': 1, 'mainAxisCellCount': 1, 'image': 'assets/dummy_img/5.png'},
+    {'crossAxisCellCount': 1, 'mainAxisCellCount': 1, 'image': 'assets/dummy_img/6.png'},
+  ];
+
+  final List<Map<String, dynamic>> videosGridItems = [
+    {'crossAxisCellCount': 1, 'mainAxisCellCount': 1, 'image': 'assets/dummy_img/8.png'},
+    {'crossAxisCellCount': 1, 'mainAxisCellCount': 1, 'image': 'assets/dummy_img/9.png'},
+    {'crossAxisCellCount': 2, 'mainAxisCellCount': 2, 'image': 'assets/dummy_img/8.png'},
+    {'crossAxisCellCount': 1, 'mainAxisCellCount': 1, 'image': 'assets/dummy_img/9.png'},
+    {'crossAxisCellCount': 1, 'mainAxisCellCount': 1, 'image': 'assets/dummy_img/8.png'},
+    {'crossAxisCellCount': 2, 'mainAxisCellCount': 2, 'image': 'assets/dummy_img/9.png'},
+    {'crossAxisCellCount': 1, 'mainAxisCellCount': 1, 'image': 'assets/dummy_img/8.png'},
+    {'crossAxisCellCount': 1, 'mainAxisCellCount': 1, 'image': 'assets/dummy_img/9.png'},
+    {'crossAxisCellCount': 1, 'mainAxisCellCount': 1, 'image': 'assets/dummy_img/8.png'},
+    {'crossAxisCellCount': 1, 'mainAxisCellCount': 1, 'image': 'assets/dummy_img/9.png'},
+  ];
+
   final selectedOption = ''.obs;
 
   final List<String> privacyOptions = ['Private', 'Family Only', 'Followers Only'];
