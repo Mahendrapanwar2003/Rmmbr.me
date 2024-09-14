@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:get/get.dart';
 import 'package:new_pro/app/routes/app_pages.dart';
 import 'package:new_pro/common/common_methods.dart';
@@ -38,7 +39,7 @@ class ProfileView extends GetView<ProfileController> {
                                 onTap: () => controller.clickOnTabBarView(tabBarValue:controller.cardTabBarTitles[index]),
                                 child: Container(
                                   // height: 40.px,
-                                  padding: EdgeInsets.symmetric(horizontal: 20.px,vertical: 10.px),
+                                  padding: EdgeInsets.symmetric(horizontal: 20.px),
                                   decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(6.px),
                                       color: controller.selectTabBarValue.value == controller.cardTabBarTitles[index]
@@ -53,14 +54,16 @@ class ProfileView extends GetView<ProfileController> {
                                               : .5.px
                                       )
                                   ),
-                                  child: Text(
-                                    controller.cardTabBarTitles[index],
-                                    style: Theme.of(context).textTheme.labelSmall?.copyWith(
-                                        // height: 1.2,
-                                        fontWeight: FontWeight.w500,
-                                        color: controller.selectTabBarValue.value == controller.cardTabBarTitles[index]
-                                            ? Theme.of(context).colorScheme.onPrimary
-                                            : Theme.of(context).colorScheme.surface
+                                  child: Center(
+                                    child: Text(
+                                      controller.cardTabBarTitles[index],
+                                      style: Theme.of(context).textTheme.labelSmall?.copyWith(
+                                          // height: 1.2,
+                                          fontWeight: FontWeight.w500,
+                                          color: controller.selectTabBarValue.value == controller.cardTabBarTitles[index]
+                                              ? Theme.of(context).colorScheme.onPrimary
+                                              : Theme.of(context).colorScheme.surface
+                                      ),
                                     ),
                                   ),
                                 ),
@@ -589,47 +592,85 @@ class ProfileView extends GetView<ProfileController> {
 
   /// TODO Photos View
 
-  Widget photosView() => GridView.builder(
-    shrinkWrap: true,
-    physics: const NeverScrollableScrollPhysics(),
-    itemCount: controller.photosImgList.length,
-    padding: EdgeInsets.symmetric(vertical: 24.px),
-    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-      crossAxisCount: 3,
-      crossAxisSpacing: 2,
-      mainAxisSpacing: 2,
-      childAspectRatio: 1, // Square images
-    ),
-    itemBuilder: (context, index) {
-      return CommonMethods.appIconsPng(
-        assetName: controller.photosImgList[index],
-        height: 102.px,
-        width: 124.px,
+  Widget photosView() => StaggeredGrid.count(
+    crossAxisCount: 4,
+    mainAxisSpacing: 4,
+    crossAxisSpacing: 4,
+    children: controller.photosGridItems.map((item) {
+      return StaggeredGridTile.count(
+        crossAxisCellCount: item['crossAxisCellCount'],
+        mainAxisCellCount: item['mainAxisCellCount'],
+        child: Container(
+          color: Colors.grey.shade200,
+          child: Image.asset(
+            item['image'],
+            fit: BoxFit.cover,
+          ),
+        ),
       );
-    },
+    }).toList(),
   );
+
+  // Widget photosView() => GridView.builder(
+  //   shrinkWrap: true,
+  //   physics: const NeverScrollableScrollPhysics(),
+  //   itemCount: controller.photosImgList.length,
+  //   padding: EdgeInsets.symmetric(vertical: 24.px),
+  //   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+  //     crossAxisCount: 3,
+  //     crossAxisSpacing: 2,
+  //     mainAxisSpacing: 2,
+  //     childAspectRatio: 1, // Square images
+  //   ),
+  //   itemBuilder: (context, index) {
+  //     return CommonMethods.appIconsPng(
+  //       assetName: controller.photosImgList[index],
+  //       height: 102.px,
+  //       width: 124.px,
+  //     );
+  //   },
+  // );
 
   /// TODO Videos View
 
-  Widget videosView() => GridView.builder(
-    shrinkWrap: true,
-    physics: const NeverScrollableScrollPhysics(),
-    itemCount: controller.photosImgList.length,
-    padding: EdgeInsets.symmetric(vertical: 24.px),
-    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-      crossAxisCount: 3,
-      crossAxisSpacing: 2,
-      mainAxisSpacing: 2,
-      childAspectRatio: 1, // Square images
-    ),
-    itemBuilder: (context, index) {
-      return CommonMethods.appIconsPng(
-        assetName: controller.videosImgList[index],
-        height: 102.px,
-        width: 124.px,
+  Widget videosView() => StaggeredGrid.count(
+    crossAxisCount: 4,
+    mainAxisSpacing: 4,
+    crossAxisSpacing: 4,
+    children: controller.videosGridItems.map((item) {
+      return StaggeredGridTile.count(
+        crossAxisCellCount: item['crossAxisCellCount'],
+        mainAxisCellCount: item['mainAxisCellCount'],
+        child: Container(
+          color: Colors.grey.shade200,
+          child: Image.asset(
+            item['image'],
+            fit: BoxFit.cover,
+          ),
+        ),
       );
-    },
+    }).toList(),
   );
+
+  // Widget videosView() => GridView.builder(
+  //   shrinkWrap: true,
+  //   physics: const NeverScrollableScrollPhysics(),
+  //   itemCount: controller.photosImgList.length,
+  //   padding: EdgeInsets.symmetric(vertical: 24.px),
+  //   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+  //     crossAxisCount: 3,
+  //     crossAxisSpacing: 2,
+  //     mainAxisSpacing: 2,
+  //     childAspectRatio: 1, // Square images
+  //   ),
+  //   itemBuilder: (context, index) {
+  //     return CommonMethods.appIconsPng(
+  //       assetName: controller.videosImgList[index],
+  //       height: 102.px,
+  //       width: 124.px,
+  //     );
+  //   },
+  // );
 
 }
 // reported_accounts
