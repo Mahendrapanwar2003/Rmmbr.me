@@ -22,7 +22,7 @@ class HomeView extends GetView<HomeController> {
               padding: EdgeInsetsDirectional.symmetric(horizontal: SizeConstants.bodyHorizontalPadding),
               children: [
                 SizedBox(height: 24.px),
-                commonCardForSettingView(text: 'Rmmbr'),
+                commonCardForSettingView(text: 'Rmmbr',onTap: () => controller.clickOnTopCard(),),
                 SizedBox(height: 24.px),
                 SizedBox(
                   height: 120.px,

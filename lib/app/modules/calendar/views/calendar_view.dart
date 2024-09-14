@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-
+import '../../../../common/common_widgets.dart';
+import '../../../../constants/string_constants.dart';
 import '../controllers/calendar_controller.dart';
 
 class CalendarView extends GetView<CalendarController> {
@@ -10,11 +10,12 @@ class CalendarView extends GetView<CalendarController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('CalendarView'),
-        centerTitle: true,
+      body: Column(
+        children: [
+          CommonWidgets.commonAppBarView(isBackButtonVisible: false, appBarTitle: StringConstants.home),
+          Expanded(child: EventDatePicker()),
+        ],
       ),
-      body:EventDatePicker()
     );
   }
 
@@ -37,117 +38,158 @@ class _EventDatePickerState extends State<EventDatePicker> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            'Event date',
-            style: Theme.of(context).textTheme.bodyLarge,
-          ),
-          const SizedBox(height: 16),
-          Row(
-            children: [
-              Text(
-                _monthName(selectedMonth),
-                style: Theme.of(context).textTheme.labelLarge,
-              ),
-              SizedBox(width: 10.px),
-              GestureDetector(
-                child: const Icon(
-                  Icons.arrow_back_ios,
-                  size: 14,
+    return SingleChildScrollView(
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              children: [
+                Text(
+                  _monthName(selectedMonth),
+                  style: Theme.of(context).textTheme.labelMedium,
                 ),
-                onTap: () {
-                  setState(() {
-                    selectedMonth = selectedMonth > 1 ? selectedMonth - 1 : 12;
-                    if (selectedMonth == 12) {
-                      selectedYear--;
-                    }
-                  });
-                },
-              ),
-              SizedBox(width: 6.px),
-              GestureDetector(
-                child: const Icon(
-                  Icons.arrow_forward_ios,
-                  size: 14,
+                SizedBox(width: 10.px),
+                GestureDetector(
+                  child: const Icon(
+                    Icons.arrow_back_ios,
+                    size: 14,
+                  ),
+                  onTap: () {
+                    setState(() {
+                      selectedMonth = selectedMonth > 1 ? selectedMonth - 1 : 12;
+                      if (selectedMonth == 12) {
+                        selectedYear--;
+                      }
+                    });
+                  },
                 ),
-                onTap: () {
-                  setState(() {
-                    selectedMonth = selectedMonth < 12 ? selectedMonth + 1 : 1;
-                    if (selectedMonth == 1) {
-                      selectedYear++;
-                    }
-                  });
-                },
-              ),
-              Spacer(),
-              Container(
-                height: 28.px,
-                decoration: BoxDecoration(
-                    color: Theme.of(context).scaffoldBackgroundColor,
-                    borderRadius: BorderRadius.circular(8.px),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.grey.withOpacity(0.5),
-                        spreadRadius: 5,
-                        blurRadius: 7,
-                        offset: const Offset(
-                            0, 3), // The position of the shadow (x, y)
-                      ),
-                    ]),
-                child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 8.px),
-                  child: DropdownButton<int>(
-                    value: selectedYear,
-                    items: years.map((int year) {
-                      return DropdownMenuItem<int>(
-                        value: year,
-                        child: Text(
-                          year.toString(),
-                          style: Theme.of(context).textTheme.labelLarge,
+                SizedBox(width: 6.px),
+                GestureDetector(
+                  child: const Icon(
+                    Icons.arrow_forward_ios,
+                    size: 14,
+                  ),
+                  onTap: () {
+                    setState(() {
+                      selectedMonth = selectedMonth < 12 ? selectedMonth + 1 : 1;
+                      if (selectedMonth == 1) {
+                        selectedYear++;
+                      }
+                    });
+                  },
+                ),
+                Spacer(),
+                Container(
+                  height: 28.px,
+                  decoration: BoxDecoration(
+                      color: Theme.of(context).scaffoldBackgroundColor,
+                      borderRadius: BorderRadius.circular(8.px),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.withOpacity(0.5),
+                          spreadRadius: 5,
+                          blurRadius: 7,
+                          offset: const Offset(
+                              0, 3), // The position of the shadow (x, y)
                         ),
-                      );
-                    }).toList(),
-                    underline: const SizedBox(),
-                    icon: Icon(
-                      Icons.keyboard_arrow_down_rounded,
-                      color: Theme.of(context).primaryColor,
-                      size: 18.px,
+                      ]),
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 8.px),
+                    child: DropdownButton<int>(
+                      value: selectedYear,
+                      items: years.map((int year) {
+                        return DropdownMenuItem<int>(
+                          value: year,
+                          child: Text(
+                            year.toString(),
+                            style: Theme.of(context).textTheme.labelLarge,
+                          ),
+                        );
+                      }).toList(),
+                      underline: const SizedBox(),
+                      dropdownColor: Theme.of(context).scaffoldBackgroundColor,
+                      icon: Icon(
+                        Icons.keyboard_arrow_down_rounded,
+                        color: Theme.of(context).primaryColor,
+                        size: 18.px,
+                      ),
+                      borderRadius: BorderRadius.circular(6.px),
+                      padding: EdgeInsets.zero,
+                      onChanged: (int? newYear) {
+                        setState(() {
+                          if (newYear != null) {
+                            selectedYear = newYear;
+                          }
+                        });
+                      },
                     ),
-                    borderRadius: BorderRadius.circular(6.px),
-                    padding: EdgeInsets.zero,
-                    onChanged: (int? newYear) {
-                      setState(() {
-                        if (newYear != null) {
-                          selectedYear = newYear;
-                        }
-                      });
-                    },
                   ),
                 ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 16),
-          _buildCalendar(),
-          const SizedBox(height: 16),
-          ElevatedButton(
-            onPressed: () {
-              // Confirm date selection
-            },
-            style: ElevatedButton.styleFrom(
-              padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 12),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(30),
-              ),
+              ],
             ),
-            child: const Text('Confirm'),
-          ),
-        ],
+            const SizedBox(height: 16),
+            _buildCalendar(),
+            SizedBox(height: 10.px),
+            Text(
+              'Upcoming Events',
+              style: Theme.of(context).textTheme.labelMedium,
+            ),
+            SizedBox(height: 10.px),
+            ListView.builder(
+              itemCount: 3,
+              padding: EdgeInsets.zero,
+              shrinkWrap: true,
+              physics: NeverScrollableScrollPhysics(),
+              itemBuilder: (context, index) {
+                return Container(
+                  padding: EdgeInsets.symmetric(
+                    vertical: 16.px,
+                    horizontal: 14.px,
+                  ),
+                  decoration: BoxDecoration(
+                    color: Theme.of(Get.context!).colorScheme.onPrimary,
+                    borderRadius: BorderRadius.circular(24.px),
+                  ),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(30.px),
+                        child: Image.asset(
+                          'assets/images/profile_dummy.png',
+                          height: 60.px,
+                          width: 60.px,
+                        ),
+                      ),
+                      SizedBox(width: 14.px),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Lorem ipsum dolor sit amet, consectetur adipiscing elit,labore et dolore magna aliqua. 😍⚡',
+                              maxLines: 3,
+                              overflow: TextOverflow.ellipsis,
+                              style: Theme.of(context).textTheme.labelMedium,
+
+                      ),
+                            SizedBox(height: 6.px),
+                            Text('a day ago',style: Theme.of(Get.context!).textTheme.titleMedium
+                                ?.copyWith(height: 1.2,fontSize: 10.px),)
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                );
+              },
+            ),
+            SizedBox(height: 80.px)
+          ],
+        ),
       ),
     );
   }

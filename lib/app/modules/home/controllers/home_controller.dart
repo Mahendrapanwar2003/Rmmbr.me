@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:new_pro/app/routes/app_pages.dart';
 
 class HomeController extends GetxController {
   //TODO: Implement HomeController
@@ -27,4 +28,8 @@ class HomeController extends GetxController {
   }
 
   void increment() => count.value++;
+
+  clickOnTopCard() {
+    Get.toNamed(Routes.POST);
+  }
 }
