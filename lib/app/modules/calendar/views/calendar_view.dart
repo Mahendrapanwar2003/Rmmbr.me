@@ -12,7 +12,7 @@ class CalendarView extends GetView<CalendarController> {
     return Scaffold(
       body: Column(
         children: [
-          CommonWidgets.commonAppBarView(isBackButtonVisible: false, appBarTitle: StringConstants.home),
+          CommonWidgets.commonAppBarView(isBackButtonVisible: false, appBarTitle: StringConstants.calendar),
           Expanded(child: EventDatePicker()),
         ],
       ),

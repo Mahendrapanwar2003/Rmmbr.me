@@ -12,33 +12,36 @@ class MyStoryView extends GetView<MyStoryController> {
   const MyStoryView({super.key});
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Column(
-        children: [
-          CommonWidgets.commonAppBarView(appBarTitle: 'MY STORY'),
-          Expanded(
-            child: ListView(
-              padding: EdgeInsetsDirectional.symmetric(horizontal: SizeConstants.bodyHorizontalPadding, vertical: 32.px),
-              children: [
-                userDataCardView(),
-                userCardView(),
-                searchAndYearDropDownView(),
-                ListView.builder(
-                  itemCount: 5,
-                  physics: const NeverScrollableScrollPhysics(),
-                  shrinkWrap: true,
-                  padding: EdgeInsets.only(top: 24.px),
-                  itemBuilder: (context, index) {
-                    return Padding(
-                      padding: EdgeInsets.only(bottom: 24.px),
-                      child: postView(),
-                    );
-                  },
-                ),
-              ],
-            ),
-          )
-        ],
+    return WillPopScope(
+     onWillPop: () => controller.onWillPop(),
+      child: Scaffold(
+        body: Column(
+          children: [
+            CommonWidgets.commonAppBarView(appBarTitle: 'MY STORY'),
+            Expanded(
+              child: ListView(
+                padding: EdgeInsetsDirectional.symmetric(horizontal: SizeConstants.bodyHorizontalPadding, vertical: 32.px),
+                children: [
+                  userDataCardView(),
+                  userCardView(),
+                  searchAndYearDropDownView(),
+                  ListView.builder(
+                    itemCount: 5,
+                    physics: const NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    padding: EdgeInsets.only(top: 24.px),
+                    itemBuilder: (context, index) {
+                      return Padding(
+                        padding: EdgeInsets.only(bottom: 24.px),
+                        child: postView(),
+                      );
+                    },
+                  ),
+                ],
+              ),
+            )
+          ],
+        ),
       ),
     );
   }
@@ -48,8 +51,7 @@ class MyStoryView extends GetView<MyStoryController> {
     Color? color,
     double? fontSize,
     FontWeight? fontWeight,
-  }) =>
-      Text(
+  }) => Text(
         text,
         style: Theme.of(Get.context!).textTheme.titleMedium?.copyWith(
             height: 1.2,
@@ -142,11 +144,14 @@ class MyStoryView extends GetView<MyStoryController> {
           ),
         ),
         const Spacer(),
-        CommonMethods.appIcons(
-          assetName: IconConstants.icGrayMenu,
-          height: 20.px,
-          width: 4.px,
-          color: Theme.of(Get.context!).colorScheme.primary,
+        SizedBox(
+          width: 40.px,
+          child: CommonMethods.appIcons(
+            assetName: IconConstants.icGrayMenu,
+            height: 20.px,
+            width: 4.px,
+            color: Theme.of(Get.context!).colorScheme.primary,
+          ),
         ),
       ],
     ),

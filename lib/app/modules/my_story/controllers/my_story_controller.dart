@@ -1,9 +1,9 @@
 import 'package:get/get.dart';
 
 class MyStoryController extends GetxController {
-  //TODO: Implement MyStoryController
 
   final count = 0.obs;
+
   @override
   void onInit() {
     super.onInit();
@@ -20,4 +20,9 @@ class MyStoryController extends GetxController {
   }
 
   void increment() => count.value++;
+
+  onWillPop() {
+    Get.back();
+    Get.back();
+  }
 }

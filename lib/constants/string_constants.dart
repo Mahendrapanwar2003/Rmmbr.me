@@ -16,8 +16,7 @@ class StringConstants {
   static const String acceptTermsOfUse = 'Accept Terms of Use';
   static const String rememberMe = 'Remember Me';
   static const String forgotPassword = 'Forgot Password?';
-  static const String useMobileData =
-      'Use mobile data if wifi unavailable. Data charges may apply.';
+  static const String useMobileData = 'Use mobile data if wifi unavailable. Data charges may apply.';
   static const String enterHere = 'Enter here';
   static const String login = 'Login';
   static const String loginCapital = 'LOGIN';
