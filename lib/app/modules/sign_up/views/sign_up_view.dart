@@ -97,6 +97,8 @@ class SignUpView extends GetView<SignUpController> {
                       ),
                       SizedBox(height: 16.px),
                       CommonWidgets.commonTextFieldForLoginSignUP(
+                        readOnly: true,
+                        onTap: () => controller.clickOnDob(),
                         title: StringConstants.dob,
                         hintText: StringConstants.dobHint,
                         controller: controller.dobController,

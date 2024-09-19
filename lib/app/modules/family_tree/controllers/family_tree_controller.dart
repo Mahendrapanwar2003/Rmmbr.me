@@ -508,7 +508,15 @@ class FamilyTreeController extends GetxController
                           ),
                         ),
                       ],
-                    )
+                    ),
+                    SizedBox(height: 24.px),
+                    SizedBox(
+                      height:42.px,
+                      child: const ProfileView().commonEleButtonView(
+                        buttonText: 'Save',
+                        onPressed: () => Get.back(),
+                      ),
+                    ),
                   ],
                 ),
               ),

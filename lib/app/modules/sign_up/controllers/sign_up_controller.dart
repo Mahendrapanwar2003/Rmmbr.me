@@ -1,7 +1,10 @@
 import 'package:country_picker/country_picker.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
+import '../../../../common/date_picker_view.dart';
 import '../../../routes/app_pages.dart';
 
 enum Gender { male, female, nonBinary }
@@ -19,7 +22,6 @@ class SignUpController extends GetxController {
 
   final countryCode = 'IN'.obs;
   final countryCodeShow = '+91'.obs;
-
 
   @override
   void onInit() {
@@ -56,5 +58,13 @@ class SignUpController extends GetxController {
         countryCodeShow.value = "+ ${country.phoneCode}";
       },
     );
+  }
+
+  clickOnDob() async {
+    DateTime? dateTime =
+        await PickDate.pickDateView(color: Theme.of(Get.context!).primaryColor);
+    if (dateTime != null) {
+      dobController.text = DateFormat('MM/dd/yyyy').format(dateTime).toString();
+    }
   }
 }
