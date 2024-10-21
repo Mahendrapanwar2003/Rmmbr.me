@@ -27,7 +27,9 @@ class EnterCodeView extends GetView<EnterCodeController> {
               padding: EdgeInsets.zero,
               children: [
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: SizeConstants.bodyHorizontalPadding,),
+                  padding: EdgeInsets.symmetric(
+                    horizontal: SizeConstants.bodyHorizontalPadding,
+                  ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -49,7 +51,8 @@ class EnterCodeView extends GetView<EnterCodeController> {
                         style: Theme.of(Get.context!).textTheme.labelMedium,
                       ),
                       SizedBox(height: 16.px),
-                      CommonWidgets.commonOtpView(),
+                      CommonWidgets.commonOtpView(
+                          controller: controller.otpController),
                       SizedBox(height: 64.px),
                       CommonWidgets.commonElevatedButton(
                         onPressed: () => controller.clickOnConfirmButton(),

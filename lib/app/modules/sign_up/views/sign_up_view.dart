@@ -27,7 +27,9 @@ class SignUpView extends GetView<SignUpController> {
               padding: EdgeInsets.zero,
               children: [
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: SizeConstants.bodyHorizontalPadding,),
+                  padding: EdgeInsets.symmetric(
+                    horizontal: SizeConstants.bodyHorizontalPadding,
+                  ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -50,51 +52,58 @@ class SignUpView extends GetView<SignUpController> {
                         controller: controller.fullNameController,
                       ),
                       SizedBox(height: 16.px),
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: [
-                          Expanded(
-                            child:
-                            CommonWidgets.commonTextFieldForLoginSignUP(
-                              title: StringConstants.mobilePhoneNumber,
-                              hintText: StringConstants.enterHere,
-                              controller: controller.mobilePhoneNumberController,
-                            ),
-                          ),
-                          SizedBox(width: 6.px),
-                          InkWell(
-                            onTap: () =>
-                                controller.clickOnCountryField(),
-                            borderRadius:
-                            BorderRadius.circular(14.px),
-                            child: Container(
-                              height: 54.px,
-                              width: 54.px,
-                              decoration: BoxDecoration(
-                                color: const Color(0xffF3F3F3),
-                                borderRadius: BorderRadius.circular(6.px),
-                              ),
-                              child: Center(
-                                child: Text(
-                                  controller
-                                      .countryCodeShow.value,
-                                  style: Theme.of(Get.context!)
-                                      .textTheme
-                                      .headlineMedium
-                                      ?.copyWith(fontSize: 14.px),
-                                  maxLines: 1,
+                      Text(
+                        StringConstants.mobilePhoneNumber,
+                        style: Theme.of(Get.context!).textTheme.labelMedium,
+                      ),
+                      SizedBox(height: 16.px),
+                      Container(
+                        decoration: BoxDecoration(
+                          color: const Color(0xffF3F3F3),
+                          borderRadius: BorderRadius.circular(6.px),
+                        ),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: [
+                            InkWell(
+                              onTap: () => controller.clickOnCountryField(),
+                              borderRadius: BorderRadius.circular(14.px),
+                              child: Container(
+                                height: 54.px,
+                                // width: 54.px,
+                                decoration: BoxDecoration(
+                                  color: const Color(0xffF3F3F3),
+                                  borderRadius: BorderRadius.circular(6.px),
+                                ),
+                                child: Center(
+                                  child: Text(
+                                    '  ${controller.countryCode.value}  |  ${controller.countryCodeShow.value}',
+                                    style: Theme.of(Get.context!)
+                                        .textTheme
+                                        .titleMedium,
+                                    maxLines: 1,
+                                  ),
                                 ),
                               ),
                             ),
-                          ),
-                        ],
+                            Expanded(
+                              child:
+                                  CommonWidgets.commonTextFieldForLoginSignUP(
+                                      // title: StringConstants.mobilePhoneNumber,
+                                      hintText: StringConstants.enterHere,
+                                      controller: controller
+                                          .mobilePhoneNumberController,
+                                      keyboardType: TextInputType.phone),
+                            ),
+                          ],
+                        ),
                       ),
                       SizedBox(height: 16.px),
                       CommonWidgets.commonTextFieldForLoginSignUP(
-                        title: StringConstants.email,
-                        hintText: StringConstants.enterHere,
-                        controller: controller.emailController,
-                      ),
+                          title: StringConstants.email,
+                          hintText: StringConstants.enterHere,
+                          controller: controller.emailController,
+                          keyboardType: TextInputType.emailAddress),
                       SizedBox(height: 16.px),
                       CommonWidgets.commonTextFieldForLoginSignUP(
                         readOnly: true,
@@ -116,24 +125,24 @@ class SignUpView extends GetView<SignUpController> {
                             title: StringConstants.male,
                             value: Gender.male,
                             onChanged: (index) {
-                              controller.gender = Gender.male;
-                              controller.count;
+                              controller.gender.value = Gender.male;
+                              controller.increment();
                             },
                           ),
                           gender(
                             title: StringConstants.female,
                             value: Gender.female,
                             onChanged: (index) {
-                              controller.gender = Gender.female;
-                              controller.count;
+                              controller.gender.value = Gender.female;
+                              controller.increment();
                             },
                           ),
                           gender(
                             title: StringConstants.nonBinary,
                             value: Gender.nonBinary,
                             onChanged: (index) {
-                              controller.gender = Gender.nonBinary;
-                              controller.count;
+                              controller.gender.value = Gender.nonBinary;
+                              controller.increment();
                             },
                           ),
                         ],
@@ -182,27 +191,36 @@ class SignUpView extends GetView<SignUpController> {
     });
   }
 
-  Widget gender(
-      {required String title,
-      required Gender value,
-      required ValueChanged? onChanged}) {
+  Widget gender({
+    required String title,
+    required Gender value,
+    required ValueChanged<Gender?>? onChanged,
+  }) {
     return Row(
       children: [
-        Theme(
-          data: ThemeData(
-            disabledColor: Theme.of(Get.context!).colorScheme.surface,
-          ),
-          child: Radio(
-            value: value,
-            groupValue: controller.gender,
-            onChanged: onChanged,
-            activeColor: Theme.of(Get.context!).primaryColor,
-          ),
-        ),
+        Obx(() {
+          return Theme(
+            data: ThemeData(
+              disabledColor: Theme.of(Get.context!).colorScheme.surface,
+            ),
+            child: Radio<Gender>(
+              value: value,
+              groupValue: controller.gender.value,
+              // Accessing the value of the observable
+              onChanged: onChanged != null
+                  ? (val) {
+                      controller.gender.value = val; // Update observable gender
+                      onChanged(val); // Trigger external callback if provided
+                    }
+                  : null,
+              activeColor: Theme.of(Get.context!).primaryColor,
+            ),
+          );
+        }),
         Text(
           title,
           style: Theme.of(Get.context!).textTheme.headlineSmall,
-        )
+        ),
       ],
     );
   }

@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:cached_network_image/cached_network_image.dart';
@@ -917,6 +918,37 @@ class CommonWidgets {
     );
   }
 
+  ///For Check Get Api Response
+  static Future<bool> responseCheckForGetMethod(
+      {http.Response? response,
+        bool wantSuccessToast = false,
+        bool wantErrorToast = true,}) async {
+    Map<String, dynamic> responseMap = jsonDecode(response?.body ?? "");
+    if (response != null && response.statusCode == 200) {
+      return true;
+    } else if (response != null &&
+        response.statusCode == 401) {
+
+      return false;
+    } else {
+      return false;
+    }
+  }
+
+  ///For Check Post Api Response
+  static Future<bool> responseCheckForPostMethod(
+      {http.Response? response}) async {
+    Map<String, dynamic> responseMap = jsonDecode(response?.body ?? "");
+    if (response != null && response.statusCode == 200) {
+
+      return true;
+    } else if (response != null && response.statusCode == 401) {
+
+      return false;
+    } else {
+      return false;
+    }
+  }
 }
 
 enum ErrorAnimationType { shake, clear }

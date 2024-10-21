@@ -4,9 +4,7 @@ import 'package:new_pro/common/common_widgets.dart';
 import 'package:new_pro/constants/size_constants.dart';
 import 'package:new_pro/constants/string_constants.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-import '../../../../common/common_methods.dart';
-import '../../../../constants/icons_constant.dart';
-import '../../profile/views/profile_view.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 import '../controllers/family_tree_controller.dart';
 
 class FamilyTreeView extends GetView<FamilyTreeController> {
@@ -76,8 +74,16 @@ class FamilyTreeView extends GetView<FamilyTreeController> {
                         child: GestureDetector(
                           onTap: () =>
                               controller.clickOnAddMember(context: context),
-                          child:
-                              Image.asset('assets/images/tem_family_tree.png'),
+                          child: Column(
+                            children: [
+                              SizedBox(height: 4.px),
+                              SizedBox(
+                                height: MediaQuery.of(context).size.height/1.6,
+                                child: WebViewWidget(
+                                    controller: controller.webViewController),
+                              ),
+                            ],
+                          ),
                         ),
                       )
                     else
@@ -93,7 +99,8 @@ class FamilyTreeView extends GetView<FamilyTreeController> {
                               horizontal: 14.px,
                             ),
                             decoration: BoxDecoration(
-                              color: Theme.of(Get.context!).colorScheme.onPrimary,
+                              color:
+                                  Theme.of(Get.context!).colorScheme.onPrimary,
                               borderRadius: BorderRadius.circular(24.px),
                             ),
                             child: Row(
@@ -115,43 +122,63 @@ class FamilyTreeView extends GetView<FamilyTreeController> {
                                         'Rachel Podrez is inviting you, as a cousin, to be included in the family tree.',
                                         maxLines: 2,
                                         overflow: TextOverflow.ellipsis,
-                                        style: Theme.of(context).textTheme.labelSmall?.copyWith(
-                                         color: Theme.of(Get.context!).colorScheme.primary,
-                                         fontSize: 14.px,
-                                        ),
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .labelSmall
+                                            ?.copyWith(
+                                              color: Theme.of(Get.context!)
+                                                  .colorScheme
+                                                  .primary,
+                                              fontSize: 14.px,
+                                            ),
                                       ),
                                       SizedBox(height: 10.px),
-
                                       SizedBox(
                                         height: 38.px,
                                         child: Row(
                                           children: [
                                             Expanded(
-                                              child: CommonWidgets.commonElevatedButton(
-                                                buttonColor: Theme.of(Get.context!).colorScheme.surface.withOpacity(.2),
+                                              child: CommonWidgets
+                                                  .commonElevatedButton(
+                                                buttonColor:
+                                                    Theme.of(Get.context!)
+                                                        .colorScheme
+                                                        .surface
+                                                        .withOpacity(.2),
                                                 onPressed: () {},
                                                 child: Text(
                                                   'Reject',
-                                                  style: Theme.of(Get.context!).textTheme.labelSmall?.copyWith(
-                                                    letterSpacing: 0,
-                                                    fontSize: 14.px
-                                                  ),
+                                                  style: Theme.of(Get.context!)
+                                                      .textTheme
+                                                      .labelSmall
+                                                      ?.copyWith(
+                                                          letterSpacing: 0,
+                                                          fontSize: 14.px),
                                                 ),
                                               ),
                                             ),
                                             SizedBox(width: 16.px),
                                             Expanded(
-                                              child: CommonWidgets.commonElevatedButton(
-                                                contentPadding: EdgeInsets.symmetric(horizontal: 7.px),
-                                                onPressed: () => controller.clickOnAcceptButton(),
+                                              child: CommonWidgets
+                                                  .commonElevatedButton(
+                                                contentPadding:
+                                                    EdgeInsets.symmetric(
+                                                        horizontal: 7.px),
+                                                onPressed: () => controller
+                                                    .clickOnAcceptButton(),
                                                 child: Text(
                                                   'Accept',
-                                                  style: Theme.of(Get.context!).textTheme.labelSmall?.copyWith(
-                                                    color: Theme.of(Get.context!).colorScheme.onPrimary,
-                                                    letterSpacing: 0,
-                                                    wordSpacing: 0,
-                                                    fontSize: 14.px
-                                                  ),
+                                                  style: Theme.of(Get.context!)
+                                                      .textTheme
+                                                      .labelSmall
+                                                      ?.copyWith(
+                                                          color: Theme.of(
+                                                                  Get.context!)
+                                                              .colorScheme
+                                                              .onPrimary,
+                                                          letterSpacing: 0,
+                                                          wordSpacing: 0,
+                                                          fontSize: 14.px),
                                                 ),
                                               ),
                                             ),

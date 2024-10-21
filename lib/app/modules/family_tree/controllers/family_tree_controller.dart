@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:new_pro/app/routes/app_pages.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 import '../../../../common/common_methods.dart';
 import '../../../../common/common_widgets.dart';
 import '../../../../constants/icons_constant.dart';
@@ -18,11 +19,30 @@ class FamilyTreeController extends GetxController
   final selectedOption = ''.obs;
 
   final List<String> relationShipOptions = ['CURRENT', 'FORMER'];
+  late WebViewController webViewController;
 
   @override
   void onInit() {
     super.onInit();
     tabController = TabController(length: 2, vsync: this);
+    webViewController = WebViewController()
+      ..setJavaScriptMode(JavaScriptMode.unrestricted)
+      ..setNavigationDelegate(
+        NavigationDelegate(
+          onProgress: (int progress) {},
+          onPageStarted: (String url) {},
+          onPageFinished: (String url) {},
+          onHttpError: (HttpResponseError error) {},
+          onWebResourceError: (WebResourceError error) {},
+          onNavigationRequest: (NavigationRequest request) {
+            if (request.url.startsWith('http://157.173.222.27:3004/tree-app/6708e53804bead41f8e10070?id=4')) {
+              return NavigationDecision.prevent;
+            }
+            return NavigationDecision.navigate;
+          },
+        ),
+      )
+      ..loadRequest(Uri.parse('http://157.173.222.27:3004/tree-app/6708e53804bead41f8e10070?id=4'));
   }
 
   @override
@@ -280,7 +300,7 @@ class FamilyTreeController extends GetxController
                                 .colorScheme
                                 .surface
                                 .withOpacity(.4.px),
-                            onPressed: () {},
+                            onPressed: () => Get.back(),
                             child: Text(
                               'Cancel',
                               style: Theme.of(context)
@@ -373,7 +393,8 @@ class FamilyTreeController extends GetxController
                                 .colorScheme
                                 .surface
                                 .withOpacity(.4.px),
-                            onPressed: () {},
+                            onPressed: () => Get.back(),
+
                             child: Text(
                               'Cancel',
                               style: Theme.of(context)

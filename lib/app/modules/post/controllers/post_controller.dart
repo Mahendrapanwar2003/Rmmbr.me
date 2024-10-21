@@ -3,6 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
+import '../../../../common/common_methods.dart';
+import '../../../../constants/icons_constant.dart';
+import '../../../../constants/size_constants.dart';
+import '../../profile/views/profile_view.dart';
+
 class PostController extends GetxController {
   final count = 0.obs;
 
@@ -24,12 +29,12 @@ class PostController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    //showEventDialog();
   }
 
   @override
   void onReady() {
     super.onReady();
+    showEventDialog();
   }
 
   @override
@@ -62,8 +67,331 @@ class PostController extends GetxController {
       context: Get.context!,
       builder: (context) => Dialog(
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-        child: Container(decoration: BoxDecoration(borderRadius: BorderRadius.circular(2.px)),child: EventDatePicker()),
+        child: Container(
+            decoration:
+                BoxDecoration(borderRadius: BorderRadius.circular(2.px)),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                EventDatePicker(),
+                SizedBox(height: 24.px),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 20.px),
+                  child: SizedBox(
+                    height: 42.px,
+                    child: const ProfileView().commonEleButtonView(
+                      buttonText: 'Continue',
+                      onPressed: () {
+                        Get.back();
+                        clickOnContinue();
+                      },
+                    ),
+                  ),
+                ),
+                SizedBox(height: 24.px),
+              ],
+            )),
       ),
+    );
+  }
+
+  final List<String> restrictList = [
+    'Me Only',
+    'Tagged only',
+    'Family only',
+    'Seal'
+  ];
+  final selectedOption = ''.obs;
+
+  clickOnContinue() {
+    showModalBottomSheet(
+      context: Get.context!,
+      backgroundColor: Theme.of(Get.context!).scaffoldBackgroundColor,
+      builder: (context) {
+        return Container(
+          width: double.infinity,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(30.px),
+            ),
+          ),
+          child: ListView(
+            children: [
+              Padding(
+                padding: EdgeInsets.symmetric(
+                    horizontal: SizeConstants.bodyHorizontalPadding),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    SizedBox(height: 10.px),
+                    Container(
+                      height: 5.px,
+                      width: 40.px,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(4.px),
+                          color: Theme.of(context)
+                              .colorScheme
+                              .surface
+                              .withOpacity(.2.px)),
+                    ),
+                    SizedBox(height: 12.px),
+                    ListTile(
+                      onTap: () {
+                        Get.back();
+                      },
+                      title: Text(
+                        'Photo/Video',
+                        style: Theme.of(Get.context!).textTheme.labelLarge,
+                      ),
+                      leading: CommonMethods.appIcons(
+                          height: 16.px,
+                          width: 16.px,
+                          assetName: IconConstants.icPhotoVideo),
+                    ),/*
+                    Divider(
+                      color: Theme.of(context)
+                          .colorScheme
+                          .surface
+                          .withOpacity(.2.px),
+                      height: 1.px,
+                    ),
+                    ListTile(
+                      onTap: () {
+                        Get.back();
+                      },
+                      title: Text(
+                        'Audio',
+                        style: Theme.of(Get.context!).textTheme.labelLarge,
+                      ),
+                      leading: CommonMethods.appIcons(
+                          height: 16.px,
+                          width: 16.px,
+                          assetName: IconConstants.icAudio),
+                    ),
+                    Divider(
+                      color: Theme.of(context)
+                          .colorScheme
+                          .surface
+                          .withOpacity(.2.px),
+                      height: 1.px,
+                    ),
+                    ListTile(
+                      onTap: () {
+                        Get.back();
+                      },
+                      title: Text(
+                        'Live video',
+                        style: Theme.of(Get.context!).textTheme.labelLarge,
+                      ),
+                      leading: CommonMethods.appIcons(
+                          height: 16.px,
+                          width: 16.px,
+                          assetName: IconConstants.icLiveVideo),
+                    ),*/
+                    Divider(
+                      color: Theme.of(context)
+                          .colorScheme
+                          .surface
+                          .withOpacity(.2.px),
+                      height: 1.px,
+                    ),
+                    ListTile(
+                      onTap: () {
+                        Get.back();
+                      },
+                      title: Text(
+                        'Tag People',
+                        style: Theme.of(Get.context!).textTheme.labelLarge,
+                      ),
+                      leading: CommonMethods.appIcons(
+                          height: 16.px,
+                          width: 16.px,
+                          assetName: IconConstants.icTagPeople),
+                    ),
+                    Divider(
+                      color: Theme.of(context)
+                          .colorScheme
+                          .surface
+                          .withOpacity(.2.px),
+                      height: 1.px,
+                    ),
+                    ListTile(
+                      onTap: () {
+                        Get.back();
+                      },
+                      title: Text(
+                        'Feeling/Activity',
+                        style: Theme.of(Get.context!).textTheme.labelLarge,
+                      ),
+                      leading: CommonMethods.appIcons(
+                          height: 16.px,
+                          width: 16.px,
+                          assetName: IconConstants.icFeeling),
+                    ),
+                    Divider(
+                      color: Theme.of(context)
+                          .colorScheme
+                          .surface
+                          .withOpacity(.2.px),
+                      height: 1.px,
+                    ),
+                    ListTile(
+                      onTap: () {
+                        Get.back();
+                      },
+                      title: Text(
+                        'Restrict Post',
+                        style: Theme.of(Get.context!).textTheme.labelLarge,
+                      ),
+                      leading: CommonMethods.appIcons(
+                          height: 16.px,
+                          width: 16.px,
+                          assetName: IconConstants.icRestrictPost),
+                    ),
+                    SizedBox(
+                      height: 50,
+                      child: SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Wrap(
+                          children: [
+                            Row(
+                              children: List.generate(
+                                restrictList.length,
+                                (index) {
+                                  return Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: GestureDetector(
+                                      onTap: () {
+                                        //selectedOption.value = relationShipOptions[index];
+                                      },
+                                      child: Row(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Container(
+                                            height: 14.px,
+                                            width: 14.px,
+                                            margin:
+                                                EdgeInsets.only(right: 8.px),
+                                            decoration: BoxDecoration(
+                                              shape: BoxShape.circle,
+                                              border: Border.all(
+                                                color: selectedOption.value
+                                                        .contains(
+                                                            restrictList[index])
+                                                    ? Theme.of(context)
+                                                        .colorScheme
+                                                        .primary
+                                                    : Theme.of(context)
+                                                        .colorScheme
+                                                        .surface,
+                                              ),
+                                            ),
+                                            child: Center(
+                                              child: Container(
+                                                height: 8.px,
+                                                width: 8.px,
+                                                decoration: BoxDecoration(
+                                                  color: selectedOption.value
+                                                          .contains(
+                                                              restrictList[
+                                                                  index])
+                                                      ? Theme.of(context)
+                                                          .colorScheme
+                                                          .primary
+                                                      : Colors.transparent,
+                                                  shape: BoxShape.circle,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                          Text(
+                                            restrictList[index].toUpperCase(),
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .titleMedium
+                                                ?.copyWith(
+                                                  fontSize: 10,
+                                                  color: selectedOption.value
+                                                          .contains(
+                                                              restrictList[
+                                                                  index])
+                                                      ? Theme.of(context)
+                                                          .colorScheme
+                                                          .primary
+                                                      : Theme.of(context)
+                                                          .colorScheme
+                                                          .surface,
+                                                ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  );
+                                },
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    Divider(
+                      color: Theme.of(context)
+                          .colorScheme
+                          .surface
+                          .withOpacity(.2.px),
+                      height: 1.px,
+                    ),
+                    ListTile(
+                      onTap: () {
+                        Get.back();
+                      },
+                      title: Text(
+                        'Check in',
+                        style: Theme.of(Get.context!).textTheme.labelLarge,
+                      ),
+                      leading: CommonMethods.appIcons(
+                          height: 16.px,
+                          width: 16.px,
+                          assetName: IconConstants.icCheck),
+                    ),
+                    Divider(
+                      color: Theme.of(context)
+                          .colorScheme
+                          .surface
+                          .withOpacity(.2.px),
+                      height: 1.px,
+                    ),
+                    ListTile(
+                      onTap: () {
+                        Get.back();
+                      },
+                      title: Text(
+                        'Background colour',
+                        style: Theme.of(Get.context!).textTheme.labelLarge,
+                      ),
+                      leading: CommonMethods.appIcons(
+                          height: 16.px,
+                          width: 16.px,
+                          assetName: IconConstants.icBackgroundColor),
+                    ),
+                    Divider(
+                      color: Theme.of(context)
+                          .colorScheme
+                          .surface
+                          .withOpacity(.2.px),
+                      height: 1.px,
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        );
+      },
     );
   }
 }

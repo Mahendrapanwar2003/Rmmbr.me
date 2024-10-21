@@ -1,11 +1,13 @@
 import 'package:get/get.dart';
+import 'package:new_pro/apis/api_key_constants.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../common/globle.dart';
 import '../../../routes/app_pages.dart';
 
 class SplashController extends GetxController {
-
   final count = 0.obs;
+
   @override
   void onInit() {
     super.onInit();
@@ -28,6 +30,12 @@ class SplashController extends GetxController {
     selectedIndex.value = 0;
     increment();
     await Future.delayed(const Duration(seconds: 5));
-    Get.offAllNamed(Routes.SIGN_UP);
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    print('sharedPreferences Value::::::::::::::::::::::::::::::::::::::${sharedPreferences.getString(ApiKeyConstants.token)}');
+    if(sharedPreferences.getString(ApiKeyConstants.token)!=null && sharedPreferences.getString(ApiKeyConstants.token)!.isNotEmpty){
+      Get.offAllNamed(Routes.NAV_BAR);
+    }else{
+      Get.offAllNamed(Routes.LOGIN);
+    }
   }
 }

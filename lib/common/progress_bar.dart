@@ -97,7 +97,7 @@ class ProgressBar extends StatelessWidget {
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(24.px),
                   child: Image.asset(
-                    'assets/images/img_logo.png',
+                    'assets/images/image_logo_splash.png',
                     height: 40.px,
                     width: 40.px,
                   ),

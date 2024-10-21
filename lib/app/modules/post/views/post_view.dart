@@ -190,7 +190,7 @@ class PostView extends GetView<PostController> {
             width: 88.px,
             height: 38.px,
             child: CommonWidgets.commonElevatedButton(
-              onPressed: () => Get.toNamed(Routes.MY_STORY),
+              onPressed: () => Get.offAndToNamed(Routes.MY_STORY),
               child: Text(
                 'Post',
                 style: Theme.of(Get.context!).textTheme.labelMedium?.copyWith(

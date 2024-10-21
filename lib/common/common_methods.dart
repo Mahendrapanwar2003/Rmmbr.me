@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
@@ -35,6 +36,17 @@ class CommonMethods {
         ),
       ],
     );
+  }
+
+  static Future<bool?> showToast({required String msg}) {
+    return Fluttertoast.showToast(
+        msg: msg,
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.CENTER,
+        timeInSecForIosWeb: 1,
+        backgroundColor: Theme.of(Get.context!).primaryColor,
+        textColor: Theme.of(Get.context!).scaffoldBackgroundColor,
+        fontSize: 16.0);
   }
 
   static Widget appIconsPng(

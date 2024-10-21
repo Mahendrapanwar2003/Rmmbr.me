@@ -45,5 +45,20 @@
 	<true/>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
+
+	<key>NSCameraUsageDescription</key>
+    <string>We need camera access to allow you to take photos.</string>
+    <key>NSPhotoLibraryUsageDescription</key>
+    <string>We need access to your photo library to choose photos.</string>
+    <key>NSPhotoLibraryAddUsageDescription</key>
+    <string>We need access to save edited photos.</string>
+<key>NSAppTransportSecurity</key>
+<dict>
+    <key>NSAllowsArbitraryLoads</key>
+    <true/>
+</dict>
+<key>UIViewControllerBasedStatusBarAppearance</key>
+<false/>
+
 </dict>
 </plist>

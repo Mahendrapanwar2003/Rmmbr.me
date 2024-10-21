@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-
 import '../../../../common/common_methods.dart';
 import '../../../../common/common_widgets.dart';
 import '../../../../common/progress_bar.dart';
+import '../../../../common/theme_data.dart';
 import '../../../../constants/icons_constant.dart';
 import '../../../../constants/size_constants.dart';
 import '../../../../constants/string_constants.dart';
 import '../controllers/sign_up_second_controller.dart';
+import 'package:csc_picker/csc_picker.dart';
 
 class SignUpSecondView extends GetView<SignUpSecondController> {
   const SignUpSecondView({Key? key}) : super(key: key);
@@ -27,7 +28,9 @@ class SignUpSecondView extends GetView<SignUpSecondController> {
               padding: EdgeInsets.zero,
               children: [
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: SizeConstants.bodyHorizontalPadding,),
+                  padding: EdgeInsets.symmetric(
+                    horizontal: SizeConstants.bodyHorizontalPadding,
+                  ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -44,18 +47,36 @@ class SignUpSecondView extends GetView<SignUpSecondController> {
                         ),
                       ),
                       SizedBox(height: 22.px),
-                      Center(
-                        child: CommonMethods.appIconsPng(
-                            assetName: IconConstantsPng.icAddProfileImage,
-                            height: 64.px,
-                            width: 64.px),
-                      ),
-                      SizedBox(height: 16.px),
-                      Center(
-                        child: Text(
-                          StringConstants.addProfileImage,
-                          style: Theme.of(Get.context!).textTheme.labelMedium,
-                        ),
+                      GestureDetector(
+                        onTap: () => controller.clickOnProfile(),
+                        child: controller.imageValue.value != null
+                            ? Center(
+                              child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(32.px),
+                                  child: Image.file(controller.imageValue.value!,
+                                      height: 64.px, width: 64.px,fit: BoxFit.cover,),
+                                ),
+                            )
+                            : Column(
+                                children: [
+                                  Center(
+                                    child: CommonMethods.appIconsPng(
+                                        assetName:
+                                            IconConstantsPng.icAddProfileImage,
+                                        height: 64.px,
+                                        width: 64.px),
+                                  ),
+                                  SizedBox(height: 16.px),
+                                  Center(
+                                    child: Text(
+                                      StringConstants.addProfileImage,
+                                      style: Theme.of(Get.context!)
+                                          .textTheme
+                                          .labelMedium,
+                                    ),
+                                  ),
+                                ],
+                              ),
                       ),
                       SizedBox(height: 24.px),
                       /*CommonWidgets.commonTextFieldForLoginSignUP(
@@ -64,11 +85,11 @@ class SignUpSecondView extends GetView<SignUpSecondController> {
                         controller: controller.countryController,
                       ),
                       SizedBox(height: 16.px),*/
-                      CommonWidgets.commonDropDownForLoginSignUP(
+                      /* CommonWidgets.commonDropDownForLoginSignUP(
                         title: StringConstants.country,
                         hintText: StringConstants.enterHere,
                         controller: controller.countryController,
-                       /* value: controller.countryValue.value,
+                        */ /* value: controller.countryValue.value,
                         items: <String>[
                           'India',
                           'Uk',
@@ -81,14 +102,14 @@ class SignUpSecondView extends GetView<SignUpSecondController> {
                         }).toList(),
                         onChanged: (value) {
                           controller.countryValue.value = value ?? '';
-                        },*/
+                        },*/ /*
                       ),
                       SizedBox(height: 16.px),
                       CommonWidgets.commonDropDownForLoginSignUP(
                         title: StringConstants.city,
                         hintText: StringConstants.enterHere,
                         controller: controller.cityController,
-                        /*value: controller.cityValue.value,
+                        */ /*value: controller.cityValue.value,
                         items: <String>[
                           'Indore',
                           'Ujjain',
@@ -101,14 +122,59 @@ class SignUpSecondView extends GetView<SignUpSecondController> {
                         }).toList(),
                         onChanged: (value) {
                           controller.cityValue.value = value ?? '';
-                        },*/
-                      ),/*
+                        },*/ /*
+                      ),*/
+                      /*
                       SizedBox(height: 16.px),
                       CommonWidgets.commonTextFieldForLoginSignUP(
                         title: StringConstants.city,
                         hintText: StringConstants.enterHere,
                         controller: controller.cityController,
                       ),*/
+                      SizedBox(height: 16.px),
+                      Theme(
+                        data: ThemeData(
+                          iconTheme: const IconThemeData(
+                            color: Color(0xff939393),
+                          ),
+                          hintColor: const Color(0xff939393),
+                        ),
+                        child: CSCPicker(
+                          onCountryChanged: (value) {
+                            controller.countryController.text = value ?? '';
+                            controller.count.value;
+                          },
+                          onStateChanged: (value) {
+                            controller.stateController.text = value ?? '';
+                            controller.count.value;
+                          },
+                          onCityChanged: (value) {
+                            controller.cityController.text = value ?? '';
+                            controller.count.value;
+                          },
+                          dropdownHeadingStyle: Theme.of(Get.context!)
+                              .textTheme
+                              .headlineMedium
+                              ?.copyWith(fontSize: 14.px),
+                          dropdownItemStyle: Theme.of(Get.context!)
+                              .textTheme
+                              .headlineMedium
+                              ?.copyWith(fontSize: 14.px),
+                          selectedItemStyle:
+                              Theme.of(Get.context!).textTheme.titleMedium,
+                          dropdownDecoration: BoxDecoration(
+                            color: const Color(0xffF3F3F3),
+                            borderRadius: BorderRadius.circular(6.px),
+                          ),
+                          cityDropdownLabel: StringConstants.city,
+                          countryDropdownLabel: StringConstants.country,
+                          stateDropdownLabel: StringConstants.state,
+                          disabledDropdownDecoration: BoxDecoration(
+                            color: const Color(0xffF3F3F3),
+                            borderRadius: BorderRadius.circular(6.px),
+                          ),
+                        ),
+                      ),
                       SizedBox(height: 16.px),
                       CommonWidgets.commonTextFieldForLoginSignUP(
                         title: StringConstants.createPassword,
@@ -123,7 +189,8 @@ class SignUpSecondView extends GetView<SignUpSecondController> {
                       ),
                       SizedBox(height: 8.px),
                       GestureDetector(
-                        onTap: () => controller.clickOnAcceptTermsOfUseCheckBox(),
+                        onTap: () =>
+                            controller.clickOnAcceptTermsOfUseCheckBox(),
                         child: Row(
                           children: [
                             Container(
@@ -136,16 +203,14 @@ class SignUpSecondView extends GetView<SignUpSecondController> {
                                   border: controller.acceptTermsOfUseValue.value
                                       ? null
                                       : Border.all(
-                                      color:
-                                      Theme.of(context).primaryColor),
-                                  borderRadius:
-                                  BorderRadius.circular(4.px)),
+                                          color:
+                                              Theme.of(context).primaryColor),
+                                  borderRadius: BorderRadius.circular(4.px)),
                               child: controller.acceptTermsOfUseValue.value
                                   ? const SizedBox()
                                   : Center(
-                                child:
-                                Icon(Icons.done, size: 16.px),
-                              ),
+                                      child: Icon(Icons.done, size: 16.px),
+                                    ),
                             ),
                             SizedBox(width: 8.px),
                             Text(
@@ -154,13 +219,13 @@ class SignUpSecondView extends GetView<SignUpSecondController> {
                                   .textTheme
                                   .titleMedium
                                   ?.copyWith(
-                                letterSpacing: .2.px,
-                                decoration: TextDecoration.underline,
-                                decorationColor: Theme.of(context)
-                                    .textTheme
-                                    .titleMedium
-                                    ?.color,
-                              ),
+                                    letterSpacing: .2.px,
+                                    decoration: TextDecoration.underline,
+                                    decorationColor: Theme.of(context)
+                                        .textTheme
+                                        .titleMedium
+                                        ?.color,
+                                  ),
                             ),
                           ],
                         ),

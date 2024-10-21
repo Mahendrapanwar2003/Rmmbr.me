@@ -1,6 +1,9 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
+import '../../../../common/date_picker_view.dart';
 import '../../sign_up/controllers/sign_up_controller.dart';
 
 class AddMemberController extends GetxController {
@@ -37,4 +40,13 @@ class AddMemberController extends GetxController {
   clickOnCountryField() {}
 
   clickOnSaveChangesButton() {}
+
+
+  clickOnDob() async {
+    DateTime? dateTime =
+    await PickDate.pickDateView(color: Theme.of(Get.context!).primaryColor);
+    if (dateTime != null) {
+      dobController.text = DateFormat('MM/dd/yyyy').format(dateTime).toString();
+    }
+  }
 }

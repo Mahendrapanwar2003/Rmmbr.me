@@ -60,42 +60,49 @@ class EditMemberView extends GetView<EditMemberController> {
                             controller: controller.fullNameController,
                           ),
                           SizedBox(height: 16.px),
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.end,
-                            children: [
-                              Expanded(
-                                child:
-                                    CommonWidgets.commonTextFieldForLoginSignUP(
-                                  title: StringConstants.mobilePhoneNumber,
-                                  hintText: StringConstants.enterHere,
-                                  controller:
-                                      controller.mobilePhoneNumberController,
-                                ),
-                              ),
-                              SizedBox(width: 6.px),
-                              InkWell(
-                                onTap: () => controller.clickOnCountryField(),
-                                borderRadius: BorderRadius.circular(14.px),
-                                child: Container(
-                                  height: 54.px,
-                                  width: 54.px,
-                                  decoration: BoxDecoration(
-                                    color: const Color(0xffF3F3F3),
-                                    borderRadius: BorderRadius.circular(6.px),
-                                  ),
-                                  child: Center(
-                                    child: Text(
-                                      controller.countryCodeShow.value,
-                                      style: Theme.of(Get.context!)
-                                          .textTheme
-                                          .headlineMedium
-                                          ?.copyWith(fontSize: 14.px),
-                                      maxLines: 1,
+                          Text(
+                            StringConstants.mobilePhoneNumber,
+                            style: Theme.of(Get.context!).textTheme.labelMedium,
+                          ),
+                          SizedBox(height: 16.px),
+                          Container(
+                            decoration: BoxDecoration(
+                              color: const Color(0xffF3F3F3),
+                              borderRadius: BorderRadius.circular(6.px),
+                            ),
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              children: [
+                                InkWell(
+                                  onTap: () => controller.clickOnCountryField(),
+                                  borderRadius: BorderRadius.circular(14.px),
+                                  child: Container(
+                                    height: 54.px,
+                                    // width: 54.px,
+                                    decoration: BoxDecoration(
+                                      color: const Color(0xffF3F3F3),
+                                      borderRadius: BorderRadius.circular(6.px),
+                                    ),
+                                    child: Center(
+                                      child: Text(
+                                        '  ${controller.countryCode.value}  |  ${controller.countryCodeShow.value}',
+                                        style: Theme.of(Get.context!).textTheme.titleMedium,
+                                        maxLines: 1,
+                                      ),
                                     ),
                                   ),
                                 ),
-                              ),
-                            ],
+                                Expanded(
+                                  child:
+                                  CommonWidgets.commonTextFieldForLoginSignUP(
+                                    // title: StringConstants.mobilePhoneNumber,
+                                      hintText: StringConstants.enterHere,
+                                      controller: controller
+                                          .mobilePhoneNumberController,
+                                      keyboardType: TextInputType.phone),
+                                ),
+                              ],
+                            ),
                           ),
                           SizedBox(height: 16.px),
                           CommonWidgets.commonTextFieldForLoginSignUP(
@@ -105,6 +112,8 @@ class EditMemberView extends GetView<EditMemberController> {
                           ),
                           SizedBox(height: 16.px),
                           CommonWidgets.commonTextFieldForLoginSignUP(
+                            onTap: () => controller.clickOnDob(),
+                            readOnly:  true,
                             title: StringConstants.dob,
                             hintText: StringConstants.dobHint,
                             controller: controller.dobController,

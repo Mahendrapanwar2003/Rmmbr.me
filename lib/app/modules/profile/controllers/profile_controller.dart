@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:new_pro/app/modules/nav_bar/controllers/nav_bar_controller.dart';
 import 'package:new_pro/app/modules/profile/views/profile_view.dart';
 import 'package:new_pro/app/routes/app_pages.dart';
 import 'package:new_pro/constants/size_constants.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ProfileController extends GetxController {
 
@@ -118,7 +120,7 @@ class ProfileController extends GetxController {
     count.value++;
   }
 
-  void clickOnSettingCards({required int index}) {
+  Future<void> clickOnSettingCards({required int index}) async {
     if(index == 0){
       Get.toNamed(Routes.REPORTED_ACCOUNTS);
     }else if(index== 1) {
@@ -132,6 +134,10 @@ class ProfileController extends GetxController {
     }else if(index== 5) {
       showPrivacyDialog();
     }else{
+      SharedPreferences sp = await SharedPreferences.getInstance();
+      sp.clear();
+      selectedIndex.value = 0;
+      increment();
       Get.offAllNamed(Routes.LOGIN);
     }
   }
