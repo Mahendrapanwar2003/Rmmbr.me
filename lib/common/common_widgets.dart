@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:cached_network_image/cached_network_image.dart';
@@ -6,6 +7,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+
 // ignore: depend_on_referenced_packages
 import 'package:http/http.dart' as http;
 import 'package:internet_connection_checker/internet_connection_checker.dart';
@@ -112,8 +114,10 @@ class CommonWidgets {
       width: wantContentSizeButton ? width : double.infinity,
       margin: buttonMargin,
       decoration: BoxDecoration(
-        border: wantBorder ? Border.all(
-            color: Theme.of(Get.context!).colorScheme.primary, width: 1.px):null,
+        border: wantBorder
+            ? Border.all(
+                color: Theme.of(Get.context!).colorScheme.primary, width: 1.px)
+            : null,
         borderRadius: BorderRadius.circular(borderRadius ?? 32.px),
       ),
       child: ElevatedButton(
@@ -254,7 +258,9 @@ class CommonWidgets {
                                 .textTheme
                                 .titleMedium
                                 ?.copyWith(
-                                    color: Theme.of(Get.context!).colorScheme.error),
+                                    color: Theme.of(Get.context!)
+                                        .colorScheme
+                                        .error),
                         hintText: hintText,
                         labelText: labelText,
                         labelStyle: labelStyle,
@@ -299,48 +305,46 @@ class CommonWidgets {
     );
   }
 
-
-
   static Widget commonDropDownForLoginSignUP(
       {double? elevation,
-        String? hintText,
-        String? labelText,
-        String? errorText,
-        String? title,
-        TextStyle? titleStyle,
-        EdgeInsetsGeometry? contentPadding,
-        TextEditingController? controller,
-        int? maxLines,
-        double? cursorHeight,
-        bool wantBorder = false,
-        Color? fillColor,
-        Color? initialBorderColor,
-        double? initialBorderWidth,
-        TextInputType? keyboardType,
-        double? borderRadius,
-        double? maxHeight,
-        TextStyle? hintStyle,
-        TextStyle? style,
-        TextStyle? labelStyle,
-        TextStyle? errorStyle,
-        List<TextInputFormatter>? inputFormatters,
-        TextCapitalization textCapitalization = TextCapitalization.none,
-        bool autofocus = false,
-        bool readOnly = false,
-        bool hintTextColor = false,
-        Widget? suffixIcon,
-        Widget? prefixIcon,
-        AutovalidateMode? autoValidateMode,
-        int? maxLength,
-        GestureTapCallback? onTap,
-        bool obscureText = false,
-        FocusNode? focusNode,
-        MaxLengthEnforcement? maxLengthEnforcement,
-        bool? filled,
-        ValueChanged? onChanged,
-        dynamic value,
-        List<DropdownMenuItem<String>>? items,
-        bool isCard = false}) {
+      String? hintText,
+      String? labelText,
+      String? errorText,
+      String? title,
+      TextStyle? titleStyle,
+      EdgeInsetsGeometry? contentPadding,
+      TextEditingController? controller,
+      int? maxLines,
+      double? cursorHeight,
+      bool wantBorder = false,
+      Color? fillColor,
+      Color? initialBorderColor,
+      double? initialBorderWidth,
+      TextInputType? keyboardType,
+      double? borderRadius,
+      double? maxHeight,
+      TextStyle? hintStyle,
+      TextStyle? style,
+      TextStyle? labelStyle,
+      TextStyle? errorStyle,
+      List<TextInputFormatter>? inputFormatters,
+      TextCapitalization textCapitalization = TextCapitalization.none,
+      bool autofocus = false,
+      bool readOnly = false,
+      bool hintTextColor = false,
+      Widget? suffixIcon,
+      Widget? prefixIcon,
+      AutovalidateMode? autoValidateMode,
+      int? maxLength,
+      GestureTapCallback? onTap,
+      bool obscureText = false,
+      FocusNode? focusNode,
+      MaxLengthEnforcement? maxLengthEnforcement,
+      bool? filled,
+      ValueChanged? onChanged,
+      dynamic value,
+      List<DropdownMenuItem<String>>? items,
+      bool isCard = false}) {
     return Column(
       children: [
         if (title != null && title.isNotEmpty)
@@ -357,6 +361,7 @@ class CommonWidgets {
             borderRadius: BorderRadius.circular(borderRadius ?? 6.px),
           ),
           child: DropdownButton<String>(
+            dropdownColor: Theme.of(Get.context!).scaffoldBackgroundColor,
             style: style ??
                 Theme.of(Get.context!)
                     .textTheme
@@ -380,7 +385,6 @@ class CommonWidgets {
       ],
     );
   }
-
 
   static Widget commonTextFieldDropDownForLoginSignUPNew(
       {double? elevation,
@@ -685,7 +689,8 @@ class CommonWidgets {
     }
   }
 
-  static ScaffoldFeatureController<SnackBar, SnackBarClosedReason> snackBarView1({String title = ''}) {
+  static ScaffoldFeatureController<SnackBar, SnackBarClosedReason>
+      snackBarView1({String title = ''}) {
     var snackBar = SnackBar(
       content: Text(title,
           style: Theme.of(Get.context!)
@@ -740,94 +745,99 @@ class CommonWidgets {
     bool isBackButtonVisible = true,
     bool isNotificationClick = true,
     required String appBarTitle,
-  }) => Container(
-    width: double.infinity,
-    height: 120.px,
-    padding: EdgeInsetsDirectional.only(start: 24.px, end: 24.px, top: 50.px, bottom: 16.px),
-    decoration: BoxDecoration(
-      color: AppLightColors().text,
-      borderRadius: BorderRadius.only(
-        bottomRight: Radius.circular(24.px),
-        bottomLeft: Radius.circular(24.px),
-      ),
-    ),
-    child: Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        if (isBackButtonVisible)
-          GestureDetector(
-            onTap: () => Get.back(),
-            child: SizedBox(
-              height: 54.px,
-              // width: 54.px,
-              child: Center(
-                child: CommonMethods.appIcons(
-                  assetName: IconConstants.icBackArrow,
-                  width: 24.px,
-                  height: 24.px,
-                ),
-              ),
-            ),
-          )
-        else
-          SizedBox(
-            height: 54.px,
-            width: 54.px,
-          ),
-        if (isBackButtonVisible) SizedBox(width: 24.px),
-        Flexible(
-          flex: 3,
-          child: Text(
-            appBarTitle,
-            style: Theme.of(Get.context!).textTheme.headlineLarge?.copyWith(
-              color: Theme.of(Get.context!).colorScheme.onPrimary,
-              fontWeight: FontWeight.w600,
-            ),
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
+  }) =>
+      Container(
+        width: double.infinity,
+        height: 120.px,
+        padding: EdgeInsetsDirectional.only(
+            start: 24.px, end: 24.px, top: 50.px, bottom: 16.px),
+        decoration: BoxDecoration(
+          color: AppLightColors().text,
+          borderRadius: BorderRadius.only(
+            bottomRight: Radius.circular(24.px),
+            bottomLeft: Radius.circular(24.px),
           ),
         ),
-        Flexible(
-          flex: 2,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              Flexible(
-                child: Text(
-                  '20',
-                  style: Theme.of(Get.context!).textTheme.headlineLarge?.copyWith(
-                    color: Theme.of(Get.context!).colorScheme.onPrimary,
-                    fontWeight: FontWeight.w600,
-                  ),
-                  overflow: TextOverflow.ellipsis,
-                  maxLines: 1,
-                ),
-              ),
-              SizedBox(width: 4.px),
-              CommonMethods.appIcons(
-                assetName: IconConstants.icPpCoin,
-                width: 24.px,
-                height: 24.px,
-              ),
-              SizedBox(width: 12.px),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            if (isBackButtonVisible)
               GestureDetector(
-                onTap: () {
-                  if(isNotificationClick) {
-                    Get.toNamed(Routes.NOTIFICATION);
-                  }
-                },
-                child: CommonMethods.appIcons(
-                  assetName: IconConstants.notification,
-                  width: 24.px,
-                  height: 24.px,
+                onTap: () => Get.back(),
+                child: SizedBox(
+                  height: 54.px,
+                  // width: 54.px,
+                  child: Center(
+                    child: CommonMethods.appIcons(
+                      assetName: IconConstants.icBackArrow,
+                      width: 24.px,
+                      height: 24.px,
+                    ),
+                  ),
                 ),
+              )
+            else
+              SizedBox(
+                height: 54.px,
+                width: 54.px,
               ),
-            ],
-          ),
-        )
-      ],
-    ),
-  );
+            if (isBackButtonVisible) SizedBox(width: 24.px),
+            Flexible(
+              flex: 3,
+              child: Text(
+                appBarTitle,
+                style: Theme.of(Get.context!).textTheme.headlineLarge?.copyWith(
+                      color: Theme.of(Get.context!).colorScheme.onPrimary,
+                      fontWeight: FontWeight.w600,
+                    ),
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+              ),
+            ),
+            Flexible(
+              flex: 2,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Flexible(
+                    child: Text(
+                      '20',
+                      style: Theme.of(Get.context!)
+                          .textTheme
+                          .headlineLarge
+                          ?.copyWith(
+                            color: Theme.of(Get.context!).colorScheme.onPrimary,
+                            fontWeight: FontWeight.w600,
+                          ),
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 1,
+                    ),
+                  ),
+                  SizedBox(width: 4.px),
+                  CommonMethods.appIcons(
+                    assetName: IconConstants.icPpCoin,
+                    width: 24.px,
+                    height: 24.px,
+                  ),
+                  SizedBox(width: 12.px),
+                  GestureDetector(
+                    onTap: () {
+                      if (isNotificationClick) {
+                        Get.toNamed(Routes.NOTIFICATION);
+                      }
+                    },
+                    child: CommonMethods.appIcons(
+                      assetName: IconConstants.notification,
+                      width: 24.px,
+                      height: 24.px,
+                    ),
+                  ),
+                ],
+              ),
+            )
+          ],
+        ),
+      );
 
   static Widget commonSearchFieldView() {
     return Container(
@@ -855,12 +865,18 @@ class CommonWidgets {
           Expanded(
             child: TextField(
               cursorHeight: 20.px,
-              style: Theme.of(Get.context!).textTheme.labelMedium?.copyWith(fontWeight: FontWeight.w600),
+              style: Theme.of(Get.context!)
+                  .textTheme
+                  .labelMedium
+                  ?.copyWith(fontWeight: FontWeight.w600),
               decoration: InputDecoration(
                 hintText: 'Search',
                 border: InputBorder.none,
                 contentPadding: EdgeInsets.only(bottom: 4.px),
-                hintStyle: Theme.of(Get.context!).textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400),
+                hintStyle: Theme.of(Get.context!)
+                    .textTheme
+                    .labelLarge
+                    ?.copyWith(fontWeight: FontWeight.w400),
               ),
             ),
           ),
@@ -869,10 +885,11 @@ class CommonWidgets {
     );
   }
 
-  static commonDividerView({double? height,Color? color,double? thickness}) {
+  static commonDividerView({double? height, Color? color, double? thickness}) {
     return Divider(
       height: height ?? 0.px,
-      color: color ?? Theme.of(Get.context!).colorScheme.primary.withOpacity(.1),
+      color:
+          color ?? Theme.of(Get.context!).colorScheme.primary.withOpacity(.1),
       thickness: thickness ?? 1.px,
     );
   }
@@ -897,12 +914,18 @@ class CommonWidgets {
           Expanded(
             child: TextField(
               cursorHeight: 20.px,
-              style: Theme.of(Get.context!).textTheme.labelMedium?.copyWith(fontWeight: FontWeight.w600),
+              style: Theme.of(Get.context!)
+                  .textTheme
+                  .labelMedium
+                  ?.copyWith(fontWeight: FontWeight.w600),
               decoration: InputDecoration(
                 hintText: 'Type massege...',
                 border: InputBorder.none,
                 contentPadding: EdgeInsets.only(bottom: 10.px),
-                hintStyle: Theme.of(Get.context!).textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400),
+                hintStyle: Theme.of(Get.context!)
+                    .textTheme
+                    .labelLarge
+                    ?.copyWith(fontWeight: FontWeight.w400),
               ),
             ),
           ),
@@ -917,6 +940,34 @@ class CommonWidgets {
     );
   }
 
+  ///For Check Get Api Response
+  static Future<bool> responseCheckForGetMethod({
+    http.Response? response,
+    bool wantSuccessToast = false,
+    bool wantErrorToast = true,
+  }) async {
+    Map<String, dynamic> responseMap = jsonDecode(response?.body ?? "");
+    if (response != null && response.statusCode == 200) {
+      return true;
+    } else if (response != null && response.statusCode == 401) {
+      return false;
+    } else {
+      return false;
+    }
+  }
+
+  ///For Check Post Api Response
+  static Future<bool> responseCheckForPostMethod(
+      {http.Response? response}) async {
+    Map<String, dynamic> responseMap = jsonDecode(response?.body ?? "");
+    if (response != null && response.statusCode == 200) {
+      return true;
+    } else if (response != null && response.statusCode == 401) {
+      return false;
+    } else {
+      return false;
+    }
+  }
 }
 
 enum ErrorAnimationType { shake, clear }

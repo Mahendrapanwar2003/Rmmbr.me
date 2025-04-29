@@ -10,6 +10,7 @@ class StringConstants {
   static const String female = 'Female';
   static const String nonBinary = 'Non-Binary';
   static const String country = 'Country';
+  static const String state = 'State';
   static const String city = 'City';
   static const String createPassword = 'Create Password';
   static const String reEnterPassword = 'Re-enter Password';
@@ -36,11 +37,9 @@ class StringConstants {
   static const String profile = 'Profile';
   static const String deleteAccount = 'Delete Account';
   static const String deleteInfo = 'Delete Info';
-  static const String deleteYourAccountPermanently =
-      'Delete your account permanently';
+  static const String deleteYourAccountPermanently = 'Delete your account permanently';
   static const String pleaseEnterPhoneNumber = 'Please enter phone number';
-  static const String enterYourEmailAndPassword =
-      'Enter your email and password';
+  static const String enterYourEmailAndPassword = 'Enter your email and password';
   static const String continueText = 'Continue';
   static const String password = 'Password';
   static const String submit = 'Submit';
@@ -60,5 +59,9 @@ class StringConstants {
   static const String editMember = 'Edit Member';
   static const String saveChanges = 'Save Changes';
   static const String relation = 'Relation';
+  static const String camera = 'Camera';
+  static const String gallery = 'Gallery';
+  static const String chooseImageFromTheOptionsBelow = 'Choose Image From The Options Below';
+  static const String selectImage = 'Select Image';
 
 }

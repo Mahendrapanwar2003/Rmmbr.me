@@ -2,6 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:new_pro/app/routes/app_pages.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:webview_flutter/webview_flutter.dart';
+import '../../../../apis/api_Methods.dart';
+import '../../../../apis/api_key_constants.dart';
+import '../../../../apis/api_models/get_relation_requests_model.dart';
+import '../../../../apis/api_models/user_data_model.dart';
 import '../../../../common/common_methods.dart';
 import '../../../../common/common_widgets.dart';
 import '../../../../constants/icons_constant.dart';
@@ -14,15 +20,25 @@ class FamilyTreeController extends GetxController
   late TabController tabController;
 
   final selectedTab = 0.obs;
+  final isOpenBottom = 0.obs;
+  final inAsyncCall = true.obs;
 
   final selectedOption = ''.obs;
+  final userId = ''.obs;
+  final initialUrl = ''.obs;
 
   final List<String> relationShipOptions = ['CURRENT', 'FORMER'];
+  late WebViewController webViewController;
+  List<Requests> requests = [];
+
+  final isBottomSheetAlreadyOpened = false.obs;
 
   @override
-  void onInit() {
+  Future<void> onInit() async {
     super.onInit();
     tabController = TabController(length: 2, vsync: this);
+    initializeWebView();
+    await getApi();
   }
 
   @override
@@ -38,14 +54,25 @@ class FamilyTreeController extends GetxController
 
   void increment() => count.value++;
 
-  clickOnTab({required int value}) {
+  clickOnTab({required int value}) async {
     selectedTab.value = value;
     increment();
+    if (selectedTab.value == 0) {
+      inAsyncCall.value = true;
+      increment();
+      webViewController.reload();
+      inAsyncCall.value = false;
+      increment();
+    } else {
+      await getApi();
+    }
   }
 
-  clickOnAddMember({required BuildContext context}) {
+  void clickOnAddMember({required BuildContext context, required String r_id}) {
     showModalBottomSheet(
       context: context,
+      isDismissible: false,
+      barrierColor: Colors.black87,
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       builder: (context) {
         return Container(
@@ -67,11 +94,12 @@ class FamilyTreeController extends GetxController
                   height: 5.px,
                   width: 40.px,
                   decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(4.px),
-                      color: Theme.of(context)
-                          .colorScheme
-                          .surface
-                          .withOpacity(.2.px)),
+                    borderRadius: BorderRadius.circular(4.px),
+                    color: Theme.of(context)
+                        .colorScheme
+                        .surface
+                        .withOpacity(.2.px),
+                  ),
                 ),
                 SizedBox(height: 12.px),
                 userDataCardView(),
@@ -82,15 +110,15 @@ class FamilyTreeController extends GetxController
                 ),
                 ListTile(
                   onTap: () {
-                    /* Get.back();
-                    Get.toNamed(Routes.ADD_MEMBER);*/
+                    Get.back();
+                    Get.toNamed(Routes.ADD_MEMBER, arguments: r_id);
                   },
                   title: Text(
-                    'Dallas , US',
+                    'Add new member',
                     style: Theme.of(Get.context!).textTheme.labelLarge,
                   ),
                   leading: CommonMethods.appIcons(
-                      assetName: IconConstants.icDallasUs),
+                      assetName: IconConstants.icEditProfile),
                 ),
                 Divider(
                   color:
@@ -146,6 +174,12 @@ class FamilyTreeController extends GetxController
             ),
           ),
         );
+      },
+    ).whenComplete(
+      () {
+        isBottomSheetAlreadyOpened.value = false;
+        webViewController.loadRequest(Uri.parse(initialUrl.value));
+        increment();
       },
     );
   }
@@ -280,7 +314,7 @@ class FamilyTreeController extends GetxController
                                 .colorScheme
                                 .surface
                                 .withOpacity(.4.px),
-                            onPressed: () {},
+                            onPressed: () => Get.back(),
                             child: Text(
                               'Cancel',
                               style: Theme.of(context)
@@ -373,7 +407,7 @@ class FamilyTreeController extends GetxController
                                 .colorScheme
                                 .surface
                                 .withOpacity(.4.px),
-                            onPressed: () {},
+                            onPressed: () => Get.back(),
                             child: Text(
                               'Cancel',
                               style: Theme.of(context)
@@ -408,8 +442,31 @@ class FamilyTreeController extends GetxController
     );
   }
 
-  void clickOnAcceptButton() {
-    showDialog(
+  Future<void> clickOnAcceptButton({required int index}) async {
+    if (requests[index].userId != null && requests[index].userId!.isNotEmpty) {
+      inAsyncCall.value = true;
+      increment();
+      Map<String, dynamic> bodyParams = {
+        ApiKeyConstants.userIdStatic: requests[index].userId.toString(),
+        ApiKeyConstants.confirmation: true,
+      };
+      UserDataModel? userDataModel =
+          await ApiMethods.confirmRelation(bodyParams: bodyParams);
+      print('userDataModel::::::::::::::::::${userDataModel}');
+      if (userDataModel != null) {
+        inAsyncCall.value = true;
+        increment();
+       await getApi();
+        inAsyncCall.value = false;
+        increment();
+        //Get.offAllNamed(Routes.LOGIN);
+      }
+      inAsyncCall.value = false;
+      increment();
+    } else {
+      CommonMethods.showToast(msg: 'All field request!');
+    }
+    /*showDialog(
       context: Get.context!,
       barrierDismissible: false,
       builder: (BuildContext context) {
@@ -417,13 +474,16 @@ class FamilyTreeController extends GetxController
           () {
             count.value;
             return Dialog(
-              insetPadding: EdgeInsets.symmetric(horizontal: SizeConstants.bodyHorizontalPadding),
+              insetPadding: EdgeInsets.symmetric(
+                  horizontal: SizeConstants.bodyHorizontalPadding),
               backgroundColor: Theme.of(context).colorScheme.onPrimary,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(16),
               ),
               child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: SizeConstants.bodyHorizontalPadding, vertical: 24.px),
+                padding: EdgeInsets.symmetric(
+                    horizontal: SizeConstants.bodyHorizontalPadding,
+                    vertical: 24.px),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
@@ -435,10 +495,15 @@ class FamilyTreeController extends GetxController
                         Flexible(
                           child: Text(
                             'Please Confirm relationship with your partner',
-                            style: Theme.of(context).textTheme.labelSmall?.copyWith(
-                              color: Theme.of(Get.context!).colorScheme.primary,
-                              fontSize: 20.px,
-                            ),
+                            style: Theme.of(context)
+                                .textTheme
+                                .labelSmall
+                                ?.copyWith(
+                                  color: Theme.of(Get.context!)
+                                      .colorScheme
+                                      .primary,
+                                  fontSize: 20.px,
+                                ),
                           ),
                         ),
                         GestureDetector(
@@ -461,10 +526,12 @@ class FamilyTreeController extends GetxController
                                 padding: const EdgeInsets.all(8.0),
                                 child: GestureDetector(
                                   onTap: () {
-                                    selectedOption.value = relationShipOptions[index];
+                                    selectedOption.value =
+                                        relationShipOptions[index];
                                   },
                                   child: Row(
-                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       Container(
@@ -474,9 +541,16 @@ class FamilyTreeController extends GetxController
                                         decoration: BoxDecoration(
                                           shape: BoxShape.circle,
                                           border: Border.all(
-                                            color: selectedOption.value.contains(relationShipOptions[index])
-                                                ? Theme.of(context).colorScheme.primary 
-                                                : Theme.of(context).colorScheme.surface,
+                                            color: selectedOption.value
+                                                    .contains(
+                                                        relationShipOptions[
+                                                            index])
+                                                ? Theme.of(context)
+                                                    .colorScheme
+                                                    .primary
+                                                : Theme.of(context)
+                                                    .colorScheme
+                                                    .surface,
                                           ),
                                         ),
                                         child: Center(
@@ -484,8 +558,13 @@ class FamilyTreeController extends GetxController
                                             height: 8.px,
                                             width: 8.px,
                                             decoration: BoxDecoration(
-                                              color: selectedOption.value.contains(relationShipOptions[index])
-                                                  ? Theme.of(context).colorScheme.primary
+                                              color: selectedOption.value
+                                                      .contains(
+                                                          relationShipOptions[
+                                                              index])
+                                                  ? Theme.of(context)
+                                                      .colorScheme
+                                                      .primary
                                                   : Colors.transparent,
                                               shape: BoxShape.circle,
                                             ),
@@ -493,12 +572,23 @@ class FamilyTreeController extends GetxController
                                         ),
                                       ),
                                       Text(
-                                        relationShipOptions[index].toUpperCase(),
-                                        style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                                          color: selectedOption.value.contains(relationShipOptions[index])
-                                              ? Theme.of(context).colorScheme.primary
-                                              : Theme.of(context).colorScheme.surface,
-                                        ),
+                                        relationShipOptions[index]
+                                            .toUpperCase(),
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .titleMedium
+                                            ?.copyWith(
+                                              color: selectedOption.value
+                                                      .contains(
+                                                          relationShipOptions[
+                                                              index])
+                                                  ? Theme.of(context)
+                                                      .colorScheme
+                                                      .primary
+                                                  : Theme.of(context)
+                                                      .colorScheme
+                                                      .surface,
+                                            ),
                                       ),
                                     ],
                                   ),
@@ -511,7 +601,7 @@ class FamilyTreeController extends GetxController
                     ),
                     SizedBox(height: 24.px),
                     SizedBox(
-                      height:42.px,
+                      height: 42.px,
                       child: const ProfileView().commonEleButtonView(
                         buttonText: 'Save',
                         onPressed: () => Get.back(),
@@ -524,6 +614,83 @@ class FamilyTreeController extends GetxController
           },
         );
       },
-    );
+    );*/
+  }
+
+  Future<void> initializeWebView() async {
+    // Fetch user ID from SharedPreferences asynchronously
+    SharedPreferences sp = await SharedPreferences.getInstance();
+    userId.value = sp.getString(ApiKeyConstants.userId) ?? '';
+
+    // Build the URL
+    initialUrl.value = 'http://157.173.222.27:3004/tree-app/${userId.value}';
+
+    print('initialUrl.value:::::::::::: ${initialUrl.value}');
+
+    // Initialize the WebViewController after the URL is ready
+    webViewController = WebViewController()
+      ..setJavaScriptMode(JavaScriptMode.unrestricted)
+      ..setNavigationDelegate(
+        NavigationDelegate(
+          onProgress: (int progress) {
+            print('Loading progress: $progress');
+          },
+          onPageStarted: (String url) {
+            print('Page started loading: $url');
+
+            // Check if URL contains https://example.com/
+            if (url.contains('https://example.com/')) {
+              Uri uri = Uri.parse(url);
+              String lastSegment = uri.pathSegments.last;
+              print('lastSegment::::::::::::::::::::::::$lastSegment');
+              // Only call the method and reload if it hasn't been done yet
+              if (!isBottomSheetAlreadyOpened.value) {
+                clickOnAddMember(
+                  context: Get.context!,
+                  r_id: lastSegment,
+                );
+                isBottomSheetAlreadyOpened.value =
+                    true; // Set the flag to true to prevent re-execution
+                // Reload the WebView with the initial URL after calling the method
+                webViewController.loadRequest(Uri.parse(initialUrl.value));
+              }
+            }
+          },
+          onPageFinished: (String url) {
+            print('Page finished loading: $url');
+          },
+          onHttpError: (HttpResponseError error) {
+            print('HTTP error occurred: ${error.toString()}');
+          },
+          onWebResourceError: (WebResourceError error) {
+            print('Web resource error occurred: ${error.toString()}');
+          },
+          onNavigationRequest: (NavigationRequest request) {
+            print('Navigation request: ${request.url}');
+            return NavigationDecision.navigate;
+          },
+        ),
+      )
+      ..loadRequest(Uri.parse(initialUrl
+          .value)); // Load the initial URL when the web view is created
+
+    inAsyncCall.value = false;
+    increment();
+  }
+
+  Future<void> getApi() async {
+    inAsyncCall.value = true;
+    increment();
+    GetRelationRequestsModel? getRelationRequestsModel =
+        await ApiMethods.getRelationRequests();
+    if (getRelationRequestsModel != null &&
+        getRelationRequestsModel.requests != null &&
+        getRelationRequestsModel.requests!.isNotEmpty) {
+      requests.clear();
+      requests = getRelationRequestsModel.requests!;
+      increment();
+    }
+    inAsyncCall.value = false;
+    increment();
   }
 }

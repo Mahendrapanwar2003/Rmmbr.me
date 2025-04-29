@@ -1,10 +1,25 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import '../../../../apis/api_Methods.dart';
+import '../../../../apis/api_key_constants.dart';
+import '../../../../apis/api_models/user_data_model.dart';
+import '../../../../common/alert_dialog_view.dart';
+import '../../../../common/common_methods.dart';
+import '../../../../common/image_pick_and_crop.dart';
+import '../../../../constants/icons_constant.dart';
+import '../../../../constants/size_constants.dart';
+import '../../../../constants/string_constants.dart';
+import '../../../routes/app_pages.dart';
+import '../../profile/views/profile_view.dart';
 
 class PostController extends GetxController {
   final count = 0.obs;
+  final inAsyncCall = false.obs;
 
   final realCheckSelectedValue = ''.obs;
 
@@ -21,15 +36,17 @@ class PostController extends GetxController {
     'Contains nudity, sex, violence or weapons',
   ];
 
+  final imageValue = Rxn<File>();
+
   @override
   void onInit() {
     super.onInit();
-    //showEventDialog();
   }
 
   @override
   void onReady() {
     super.onReady();
+    showEventDialog();
   }
 
   @override
@@ -60,11 +77,446 @@ class PostController extends GetxController {
   void showEventDialog() {
     showDialog(
       context: Get.context!,
+      barrierDismissible: false,
       builder: (context) => Dialog(
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-        child: Container(decoration: BoxDecoration(borderRadius: BorderRadius.circular(2.px)),child: EventDatePicker()),
+        child: Container(
+            decoration:
+                BoxDecoration(borderRadius: BorderRadius.circular(2.px)),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                SizedBox(height: 24.px),
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 20.px),
+                    child: Text(
+                      'Event date',
+                      style: Theme.of(context)
+                          .textTheme
+                          .displayMedium
+                          ?.copyWith(fontSize: 16.px),
+                    ),
+                  ),
+                ),
+                SizedBox(height: 24.px),
+                EventDatePicker(),
+                SizedBox(height: 24.px),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 20.px),
+                  child: SizedBox(
+                    height: 42.px,
+                    child: const ProfileView().commonEleButtonView(
+                      buttonText: 'Continue',
+                      onPressed: () {
+                        Get.back();
+                        clickOnContinue();
+                      },
+                    ),
+                  ),
+                ),
+                SizedBox(height: 24.px),
+              ],
+            )),
       ),
     );
+  }
+
+  final List<String> restrictList = [
+    'Me Only',
+    'Tagged only',
+    'Family only',
+    'Seal'
+  ];
+
+  final selectedOption = ''.obs;
+
+  TextEditingController titleController = TextEditingController();
+
+  clickOnContinue() {
+    showModalBottomSheet(
+      context: Get.context!,
+      backgroundColor: Theme.of(Get.context!).scaffoldBackgroundColor,
+      builder: (context) {
+        return Container(
+          width: double.infinity,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(30.px),
+            ),
+          ),
+          child: ListView(
+            children: [
+              Padding(
+                padding: EdgeInsets.symmetric(
+                    horizontal: SizeConstants.bodyHorizontalPadding),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    SizedBox(height: 10.px),
+                    Container(
+                      height: 5.px,
+                      width: 40.px,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(4.px),
+                          color: Theme.of(context)
+                              .colorScheme
+                              .surface
+                              .withOpacity(.2.px)),
+                    ),
+                    SizedBox(height: 12.px),
+                    ListTile(
+                      onTap: () {
+                        Get.back();
+                        showAlertDialog();
+                      },
+                      title: Text(
+                        'Photo/Video',
+                        style: Theme.of(Get.context!).textTheme.labelLarge,
+                      ),
+                      leading: CommonMethods.appIcons(
+                          height: 16.px,
+                          width: 16.px,
+                          assetName: IconConstants.icPhotoVideo),
+                    ),
+                    /*
+                    Divider(
+                      color: Theme.of(context)
+                          .colorScheme
+                          .surface
+                          .withOpacity(.2.px),
+                      height: 1.px,
+                    ),
+                    ListTile(
+                      onTap: () {
+                        Get.back();
+                      },
+                      title: Text(
+                        'Audio',
+                        style: Theme.of(Get.context!).textTheme.labelLarge,
+                      ),
+                      leading: CommonMethods.appIcons(
+                          height: 16.px,
+                          width: 16.px,
+                          assetName: IconConstants.icAudio),
+                    ),
+                    Divider(
+                      color: Theme.of(context)
+                          .colorScheme
+                          .surface
+                          .withOpacity(.2.px),
+                      height: 1.px,
+                    ),
+                    ListTile(
+                      onTap: () {
+                        Get.back();
+                      },
+                      title: Text(
+                        'Live video',
+                        style: Theme.of(Get.context!).textTheme.labelLarge,
+                      ),
+                      leading: CommonMethods.appIcons(
+                          height: 16.px,
+                          width: 16.px,
+                          assetName: IconConstants.icLiveVideo),
+                    ),*/
+                    Divider(
+                      color: Theme.of(context)
+                          .colorScheme
+                          .surface
+                          .withOpacity(.2.px),
+                      height: 1.px,
+                    ),
+                    ListTile(
+                      onTap: () {
+                        //Get.back();
+                      },
+                      title: Text(
+                        'Tag People',
+                        style: Theme.of(Get.context!).textTheme.labelLarge,
+                      ),
+                      leading: CommonMethods.appIcons(
+                          height: 16.px,
+                          width: 16.px,
+                          assetName: IconConstants.icTagPeople),
+                    ),
+                    Divider(
+                      color: Theme.of(context)
+                          .colorScheme
+                          .surface
+                          .withOpacity(.2.px),
+                      height: 1.px,
+                    ),
+                    ListTile(
+                      onTap: () {
+                        //Get.back();
+                      },
+                      title: Text(
+                        'Feeling/Activity',
+                        style: Theme.of(Get.context!).textTheme.labelLarge,
+                      ),
+                      leading: CommonMethods.appIcons(
+                          height: 16.px,
+                          width: 16.px,
+                          assetName: IconConstants.icFeeling),
+                    ),
+                    Divider(
+                      color: Theme.of(context)
+                          .colorScheme
+                          .surface
+                          .withOpacity(.2.px),
+                      height: 1.px,
+                    ),
+                    ListTile(
+                      onTap: () {
+                        //Get.back();
+                      },
+                      title: Text(
+                        'Restrict Post',
+                        style: Theme.of(Get.context!).textTheme.labelLarge,
+                      ),
+                      leading: CommonMethods.appIcons(
+                          height: 16.px,
+                          width: 16.px,
+                          assetName: IconConstants.icRestrictPost),
+                    ),
+                    SizedBox(
+                      height: 50,
+                      child: SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Wrap(
+                          children: [
+                            Row(
+                              children: List.generate(
+                                restrictList.length,
+                                (index) {
+                                  return Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: GestureDetector(
+                                      onTap: () {
+                                        //selectedOption.value = relationShipOptions[index];
+                                      },
+                                      child: Row(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Container(
+                                            height: 14.px,
+                                            width: 14.px,
+                                            margin:
+                                                EdgeInsets.only(right: 8.px),
+                                            decoration: BoxDecoration(
+                                              shape: BoxShape.circle,
+                                              border: Border.all(
+                                                color: selectedOption.value
+                                                        .contains(
+                                                            restrictList[index])
+                                                    ? Theme.of(context)
+                                                        .colorScheme
+                                                        .primary
+                                                    : Theme.of(context)
+                                                        .colorScheme
+                                                        .surface,
+                                              ),
+                                            ),
+                                            child: Center(
+                                              child: Container(
+                                                height: 8.px,
+                                                width: 8.px,
+                                                decoration: BoxDecoration(
+                                                  color: selectedOption.value
+                                                          .contains(
+                                                              restrictList[
+                                                                  index])
+                                                      ? Theme.of(context)
+                                                          .colorScheme
+                                                          .primary
+                                                      : Colors.transparent,
+                                                  shape: BoxShape.circle,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                          Text(
+                                            restrictList[index].toUpperCase(),
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .titleMedium
+                                                ?.copyWith(
+                                                  fontSize: 10,
+                                                  color: selectedOption.value
+                                                          .contains(
+                                                              restrictList[
+                                                                  index])
+                                                      ? Theme.of(context)
+                                                          .colorScheme
+                                                          .primary
+                                                      : Theme.of(context)
+                                                          .colorScheme
+                                                          .surface,
+                                                ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  );
+                                },
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    Divider(
+                      color: Theme.of(context)
+                          .colorScheme
+                          .surface
+                          .withOpacity(.2.px),
+                      height: 1.px,
+                    ),
+                    ListTile(
+                      onTap: () {
+                        //Get.back();
+                      },
+                      title: Text(
+                        'Check in',
+                        style: Theme.of(Get.context!).textTheme.labelLarge,
+                      ),
+                      leading: CommonMethods.appIcons(
+                          height: 16.px,
+                          width: 16.px,
+                          assetName: IconConstants.icCheck),
+                    ),
+                    Divider(
+                      color: Theme.of(context)
+                          .colorScheme
+                          .surface
+                          .withOpacity(.2.px),
+                      height: 1.px,
+                    ),
+                    ListTile(
+                      onTap: () {
+                        //Get.back();
+                      },
+                      title: Text(
+                        'Background colour',
+                        style: Theme.of(Get.context!).textTheme.labelLarge,
+                      ),
+                      leading: CommonMethods.appIcons(
+                          height: 16.px,
+                          width: 16.px,
+                          assetName: IconConstants.icBackgroundColor),
+                    ),
+                    Divider(
+                      color: Theme.of(context)
+                          .colorScheme
+                          .surface
+                          .withOpacity(.2.px),
+                      height: 1.px,
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  void showAlertDialog() {
+    showDialog(
+      context: Get.context!,
+      barrierDismissible: true,
+      builder: (BuildContext context) {
+        return MyAlertDialog(
+          actions: [
+            CupertinoDialogAction(
+              isDefaultAction: true,
+              child: cameraTextButtonView(),
+              onPressed: () => clickCameraTextButtonView(),
+            ),
+            CupertinoDialogAction(
+              isDefaultAction: true,
+              child: galleryTextButtonView(),
+              onPressed: () => clickGalleryTextButtonView(),
+            ),
+          ],
+          title: selectImageTextView(),
+          content: contentTextView(),
+        );
+      },
+    );
+  }
+
+  Widget selectImageTextView() => Text(StringConstants.selectImage);
+
+  Widget contentTextView() =>
+      Text(StringConstants.chooseImageFromTheOptionsBelow);
+
+  Widget cameraTextButtonView() => Text(StringConstants.camera);
+
+  Widget galleryTextButtonView() => Text(StringConstants.gallery);
+
+  Future<void> clickGalleryTextButtonView() async {
+    pickGallery();
+    Get.back();
+  }
+
+  Future<void> clickCameraTextButtonView() async {
+    pickCamera();
+    Get.back();
+  }
+
+  Future<void> pickCamera() async {
+    imageValue.value = await ImagePickerAndCropper.pickImage(
+      context: Get.context!,
+      wantCropper: true,
+      color: Theme.of(Get.context!).scaffoldBackgroundColor,
+    );
+    increment();
+  }
+
+  Future<void> pickGallery() async {
+    imageValue.value = await ImagePickerAndCropper.pickImage(
+      pickImageFromGallery: true,
+      context: Get.context!,
+      wantCropper: true,
+      color: Theme.of(Get.context!).scaffoldBackgroundColor,
+    );
+    increment();
+  }
+
+  clickOnPostButton() async {
+    if (imageValue.value != null) {
+      inAsyncCall.value = true;
+      increment();
+      UserDataModel? userDataModel = await ApiMethods.addPost(
+          imageKey: ApiKeyConstants.images, image: imageValue.value);
+      SharedPreferences sp = await SharedPreferences.getInstance();
+      sp.setString(ApiKeyConstants.token, userDataModel?.token ?? '');
+      if (userDataModel != null &&
+          userDataModel.success != null &&
+          userDataModel.success!) {
+        Get.back();
+      } else {
+        if (userDataModel != null &&
+            userDataModel.message != null &&
+            userDataModel.message!.isNotEmpty) {
+          CommonMethods.showToast(msg: userDataModel.message!);
+        }
+      }
+      inAsyncCall.value = false;
+      increment();
+    } else {
+      CommonMethods.showToast(msg: 'All field request!');
+    }
+    inAsyncCall.value = false;
+    increment();
   }
 }
 
@@ -212,6 +664,7 @@ class _EventDatePickerState extends State<EventDatePicker> {
               : () {
                   setState(() {
                     selectedDate = DateTime(selectedYear, selectedMonth, day);
+                    print('selectedDate::::${selectedDate}');
                   });
                 },
           child: Container(

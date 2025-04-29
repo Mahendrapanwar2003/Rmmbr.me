@@ -23,6 +23,5 @@ class MyStoryController extends GetxController {
 
   onWillPop() {
     Get.back();
-    Get.back();
   }
 }

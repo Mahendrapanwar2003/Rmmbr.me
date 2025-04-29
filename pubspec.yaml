@@ -21,6 +21,9 @@ dependencies:
   internet_connection_checker:
   country_picker:
   flutter_staggered_grid_view:
+  csc_picker: ^0.2.7
+  fluttertoast: ^8.2.8
+  webview_flutter: ^4.10.0
 
   flutter:
     sdk: flutter

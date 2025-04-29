@@ -92,65 +92,58 @@ class LoginView extends GetView<LoginController> {
                         controller: controller.passwordController,
                       ),
                       SizedBox(height: 12.px),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          GestureDetector(
-                            onTap: () => controller.clickOnRememberMeCheckBox(),
-                            child: Row(
-                              children: [
-                                Container(
-                                  height: 20.px,
-                                  width: 20.px,
-                                  decoration: BoxDecoration(
-                                      color: controller.rememberMeValue.value
-                                          ? const Color(0xffF3F3F3)
-                                          : null,
-                                      border: controller.rememberMeValue.value
-                                          ? null
-                                          : Border.all(
-                                          color:
-                                              Theme.of(context).primaryColor),
-                                      borderRadius:
-                                          BorderRadius.circular(4.px)),
-                                  child: controller.rememberMeValue.value
-                                          ? const SizedBox()
-                                          : Center(
-                                              child:
-                                                  Icon(Icons.done, size: 16.px),
-                                            ),
-                                ),
-                                SizedBox(width: 8.px),
-                                Text(StringConstants.rememberMe,
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .titleMedium),
-                              ],
+                      GestureDetector(
+                        onTap: () => controller.clickOnRememberMeCheckBox(),
+                        child: Row(
+                          children: [
+                            Container(
+                              height: 20.px,
+                              width: 20.px,
+                              decoration: BoxDecoration(
+                                  color: controller.rememberMeValue.value
+                                      ? const Color(0xffF3F3F3)
+                                      : null,
+                                  border: controller.rememberMeValue.value
+                                      ? null
+                                      : Border.all(
+                                      color:
+                                          Theme.of(context).primaryColor),
+                                  borderRadius:
+                                      BorderRadius.circular(4.px)),
+                              child: controller.rememberMeValue.value
+                                      ? const SizedBox()
+                                      : Center(
+                                          child:
+                                              Icon(Icons.done, size: 16.px),
+                                        ),
                             ),
-                          ),
-                          GestureDetector(
-                            onTap: () => controller.clickOnForgotPassword(),
-                            child: Text(
-                              StringConstants.forgotPassword,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .headlineMedium
-                                  ?.copyWith(fontSize: 14.px),
-                            ),
-                          )
-                        ],
+                            SizedBox(width: 8.px),
+                            Text(StringConstants.rememberMe,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .titleMedium),
+                          ],
+                        ),
                       ),
-                      SizedBox(height: 24.px),
-                      Text(
-                        StringConstants.useMobileData,
-                        style: Theme.of(context).textTheme.titleMedium,
-                      ),
-                      SizedBox(height: 64.px),
+                      SizedBox(height: 34.px),
                       CommonWidgets.commonElevatedButton(
                         onPressed: () => controller.clickOnLoginButton(),
                         child: const Text(StringConstants.loginCapital),
                       ),
                       SizedBox(height: 24.px),
+                      Center(
+                        child: GestureDetector(
+                          onTap: () => controller.clickOnForgotPassword(),
+                          child: Text(
+                            StringConstants.forgotPassword,
+                            style: Theme.of(context)
+                                .textTheme
+                                .headlineMedium
+                                ?.copyWith(fontSize: 14.px),
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 40.px),
                       CommonWidgets.commonElevatedButton(
                         buttonColor: Theme.of(context).scaffoldBackgroundColor,
                         onPressed: () =>

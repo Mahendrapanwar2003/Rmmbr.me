@@ -129,6 +129,13 @@ class IconConstants {
   static const String icGrayMenu = 'assets/icons/ic_gray_menu.svg';
   static const String icSmartToy = 'assets/icons/ic_smart_toy.svg';
   static const String icCalendar = 'assets/icons/ic_calendar.svg';
+  // static const String icAudio = 'assets/icons/ic_audio.svg';
+  static const String icPhotoVideo = 'assets/icons/ic_photo_video.svg';
+  static const String icLiveVideo = 'assets/icons/ic_live_video.svg';
+  static const String icTagPeople = 'assets/icons/ic_tag_people.svg';
+  static const String icFeeling = 'assets/icons/ic_feeling.svg';
+  static const String icRestrictPost = 'assets/icons/ic_restrict_post.svg';
+  static const String icBackgroundColor = 'assets/icons/ic_background_color.svg';
 }
 
 class IconConstantsPng {

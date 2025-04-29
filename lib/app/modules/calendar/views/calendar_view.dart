@@ -234,6 +234,9 @@ class _EventDatePickerState extends State<EventDatePicker> {
                 color: const Color(0xffF3F3F3),
                 width: .5,
               ),
+              image: isBeforeToday || day%2!=0?null:DecorationImage(image:  AssetImage(
+                'assets/images/profile_dummy.png'
+              ),fit: BoxFit.cover),
             ),
             child: Text(
               '$day',

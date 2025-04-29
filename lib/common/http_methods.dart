@@ -1,18 +1,20 @@
-/*
+import 'dart:convert';
+import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
+import 'package:new_pro/common/common_widgets.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../apis/api_key_constants.dart';
 
 class MyHttp {
   static Future<http.Response?> getMethod(
       {required String url, void Function(int)? checkResponse}) async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    String? authTokenHiba =
-        sharedPreferences.getString(ApiKeyConstants.authTokenHiba);
+    String? token = sharedPreferences.getString(ApiKeyConstants.token);
     Map<String, String> authorization = {};
     authorization = {
-      "Authorization": "Bearer ${authTokenHiba ?? ''}",
+      "Authorization": "Bearer ${token ?? ''}",
       'Accept': 'application/json'
     };
     if (kDebugMode) print("URL:: $url");
@@ -50,11 +52,10 @@ class MyHttp {
       required String endPointUri,
       void Function(int)? checkResponse}) async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    String? authTokenHiba =
-        sharedPreferences.getString(ApiKeyConstants.authTokenHiba);
+    String? token = sharedPreferences.getString(ApiKeyConstants.token);
     Map<String, String> authorization = {};
     authorization = {
-      "Authorization": "Bearer ${authTokenHiba ?? ''}",
+      "Authorization": "Bearer ${token ?? ''}",
       'Accept': 'application/json'
     };
     if (kDebugMode) print("endPointUri:: $endPointUri");
@@ -94,27 +95,27 @@ class MyHttp {
       bool wantSnackBar = false,
       void Function(int)? checkResponse}) async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    String? authTokenHiba =
-        sharedPreferences.getString(ApiKeyConstants.authTokenHiba);
+    String? token = sharedPreferences.getString(ApiKeyConstants.token);
     Map<String, String> authorization = {};
     authorization = {
-      "Authorization": "Bearer ${authTokenHiba ?? ''}",
-      'Accept': 'application/json'
+      "Authorization": "Bearer ${token ?? ''}",
+      'Accept': 'application/json',
+    'Content-Type':'application/json'
     };
     if (kDebugMode) print("URL:: $url");
-    // if (kDebugMode) print("TOKEN:: $authorization");
-    if (kDebugMode) print("bodyParams:: ${bodyParams ?? {}}");
+     if (kDebugMode) print("TOKEN:: $authorization");
+    if (kDebugMode) print("bodyParams:: ${jsonEncode(bodyParams ?? {})}");
     if (await CommonWidgets.internetConnectionCheckerMethod()) {
       try {
         http.Response? response = await http.post(
           Uri.parse(url),
-          body: bodyParams ?? {},
+          body: jsonEncode(bodyParams ?? {}),
           headers: authorization,
         );
         if (kDebugMode) print("CALLING:: ${response.statusCode}");
         if (kDebugMode) print("CALLING:: ${response.body}");
         if (await CommonWidgets.responseCheckForPostMethod(
-          wantSnackBar: wantSnackBar,
+          // wantSnackBar: wantSnackBar,
           response: response,
         )) {
           checkResponse?.call(response.statusCode);
@@ -141,20 +142,19 @@ class MyHttp {
       required Map<String, dynamic> bodyParams,
       void Function(int)? checkResponse}) async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    String? authTokenHiba =
-        sharedPreferences.getString(ApiKeyConstants.authTokenHiba);
+    String? token = sharedPreferences.getString(ApiKeyConstants.token);
     Map<String, String> authorization = {};
     authorization = {
-      "Authorization": "Bearer ${authTokenHiba ?? ''}",
+      "Authorization": "Bearer ${token ?? ''}",
       'Accept': 'application/json'
     };
     if (kDebugMode) print("URL:: $url");
     // if (kDebugMode) print("TOKEN:: $authorization");
-    if (kDebugMode) print("bodyParams:: $bodyParams}");
+    if (kDebugMode) print("bodyParams:: $jsonEncode(bodyParams ?? {})}");
     if (await CommonWidgets.internetConnectionCheckerMethod()) {
       try {
         http.Response? response = await http.delete(Uri.parse(url),
-            body: bodyParams, headers: authorization);
+            body: jsonEncode(bodyParams ?? {}), headers: authorization);
         if (kDebugMode) print("CALLING:: ${response.body}");
         if (await CommonWidgets.responseCheckForPostMethod(
             response: response)) {
@@ -190,11 +190,10 @@ class MyHttp {
       List<File>? images,
       void Function(int)? checkResponse}) async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    String? authTokenHiba =
-        sharedPreferences.getString(ApiKeyConstants.authTokenHiba);
-    if (kDebugMode) print("bodyParams:: ${bodyParams ?? {}}");
+    String? token = sharedPreferences.getString(ApiKeyConstants.token);
+    if (kDebugMode) print("bodyParams:: ${jsonEncode(bodyParams ?? {})}");
     if (kDebugMode) print("URL:: $url");
-    if (kDebugMode) print("TOKEN:: ${authTokenHiba ?? ''}");
+    if (kDebugMode) print("TOKEN:: ${token ?? ''}");
     if (await CommonWidgets.internetConnectionCheckerMethod()) {
       try {
         http.Response res;
@@ -202,7 +201,7 @@ class MyHttp {
             http.MultipartRequest(multipartRequestType, Uri.parse(url));
         request.headers.addAll({'Content-Type': 'multipart/form-data'});
         request.headers.addAll({'Accept': 'application/json'});
-        request.headers['Authorization'] = "Bearer ${authTokenHiba ?? ''}";
+        request.headers['Authorization'] = "Bearer ${token ?? ''}";
         if (kDebugMode) print("CALLING:: $url");
         //Single Image Upload
         if (image != null && imageKey != null) {
@@ -223,13 +222,11 @@ class MyHttp {
           for (int i = 0; i < images.length; i++) {
             request.files.add(getUserProfileImageFile(
                 image: images[i], userProfileImageKey: imageKey));
-            */
-/*var stream = http.ByteStream(images[i].openRead());
+            var stream = http.ByteStream(images[i].openRead());
             var length = await images[i].length();
             var multipartFile = http.MultipartFile(imageKey, stream, length,
                 filename: images[i].path);
-            request.files.add(multipartFile);*/ /*
-
+            request.files.add(multipartFile);
           }
         }
 
@@ -270,4 +267,3 @@ class MyHttp {
     );
   }
 }
-*/
